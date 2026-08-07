@@ -1,0 +1,106 @@
+{
+  "caseId": "T01",
+  "title": "Persistent relation across successive source states",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "getRelationHistory",
+  "entities": [
+    {
+      "id": "de-education",
+      "canonicalLabel": "education",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-social-right",
+      "canonicalLabel": "social right",
+      "entityType": "legalCategory",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-education-social-right",
+      "sourceEntityId": "de-education",
+      "predicate": "IS_RECOGNIZED_AS",
+      "targetEntityId": "de-social-right",
+      "predicateFamily": "classificatory",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "re-edu-1988",
+      "relationId": "dr-education-social-right",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art6-1988"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-edu-2000",
+      "relationId": "dr-education-social-right",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art6-2000"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-edu-2010",
+      "relationId": "dr-education-social-right",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art6-2010"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-edu-2015",
+      "relationId": "dr-education-social-right",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art6-2015"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    }
+  ]
+}

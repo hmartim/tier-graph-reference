@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/merge-relation-candidates-request.schema.json",
+  "title": "MergeRelationCandidatesRequest",
+  "description": "Request body for mergeRelationCandidates (optional authoring). This operation SHOULD require explicit review authorization and MUST NOT merge candidates if an identity-relevant qualifier is unresolved (`unknown`).",
+  "type": "object",
+  "required": ["relationIds"],
+  "properties": {
+    "relationIds": {
+      "type": "array",
+      "description": "The relation candidates to merge. All MUST be merge-compatible per spec/03.",
+      "minItems": 2,
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "targetRelationId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Optional identifier of the surviving relation; if omitted the server assigns/selects one."
+    },
+    "reviewer": { "$ref": "../common/agent-ref.schema.json", "description": "The authorizing reviewer." },
+    "reason": { "type": "string", "description": "Rationale for the merge (recorded in provenance/review)." }
+  },
+  "additionalProperties": false
+}

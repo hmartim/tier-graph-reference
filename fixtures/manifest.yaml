@@ -1,0 +1,190 @@
+# TIER-Graph public conformance fixture manifest.
+#
+# This manifest is the single registry for the executable T01-T10 payloads.
+# The fixtures IMPLEMENT normative conformance cases defined in `tier-graph-api`;
+# they do not redefine those cases. The dependency direction is strictly
+# tier-graph-reference -> tier-graph-api.
+
+implements: tier-graph-api v0.1.0-draft
+specificationVersion: 0.1.0-draft
+fixtureSetVersion: 0.1.0
+profileConvention: "half-open intervals [from, to)"
+
+# Where each case's normative definition lives.
+caseDefinitionReference:
+  repository: tier-graph-api
+  version: 0.1.0-draft
+  pathPattern: "conformance/cases/{caseId}.md"
+
+# Grounding profile used by every public case below. It is a minimal
+# fixture-backed temporal grounding profile, NOT a SAT-Graph database export.
+groundingProfile:
+  id: public-legal-fixture
+  version: 0.1.0
+
+# Conformance classes reported by the runner (see docs/conformance.md).
+conformanceClasses:
+  - Core Model Conformance
+  - Temporal Grounding Conformance
+  - Query API Conformance
+  - Path Conformance
+  - Authoring Conformance
+
+cases:
+  - id: T01
+    title: "Persistent relation across successive source states"
+    directory: cases/T01-persistent-relation
+    operation: getRelationHistory
+    normativeAlignment:
+      operation: getRelationStateAtTime
+      status: subsumes
+      rationale: >-
+        getRelationHistory returns the full state partition over the queried
+        window, of which the normative point-in-time sample is one slice. The
+        required invariants are asserted over every segment rather than at two
+        chosen instants.
+    conformanceClass: Query API Conformance
+    conformanceClasses: [temporal-grounding, query-api]
+    competencyQuestions: [CQ3, CQ5]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T01.md
+  - id: T02
+    title: "Relation introduced in a later source state"
+    directory: cases/T02-later-introduction
+    operation: getRelationStateAtTime
+    conformanceClass: Query API Conformance
+    conformanceClasses: [temporal-grounding, query-api]
+    competencyQuestions: [CQ3, CQ6]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T02.md
+  - id: T03
+    title: "One evidence unit supports several relations"
+    directory: cases/T03-one-unit-many-relations
+    operation: getRelationsByEvidenceUnit
+    conformanceClass: Query API Conformance
+    conformanceClasses: [query-api]
+    competencyQuestions: [CQ4]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T03.md
+  - id: T04
+    title: "Withdrawn historical precondition"
+    directory: cases/T04-withdrawn-precondition
+    operation: getRelationStateAtTime
+    conformanceClass: Query API Conformance
+    conformanceClasses: [temporal-grounding, query-api]
+    competencyQuestions: [CQ3, CQ6]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T04.md
+  - id: T05
+    title: "Composite cross-item support"
+    directory: cases/T05-composite-cross-item-support
+    operation: evaluateEvidenceAdmissibility
+    conformanceClass: Temporal Grounding Conformance
+    conformanceClasses: [core-model, temporal-grounding]
+    competencyQuestions: [CQ2, CQ3]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T05.md
+  - id: T06
+    title: "Unknown versus absent qualifier"
+    directory: cases/T06-unknown-versus-absent
+    operation: compareRelationIdentity
+    conformanceClass: Core Model Conformance
+    conformanceClasses: [core-model]
+    competencyQuestions: [CQ1]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T06.md
+  - id: T07
+    title: "Positive and negative propositions remain distinct"
+    directory: cases/T07-positive-versus-negative
+    operation: getRelationStateAtTime
+    normativeAlignment:
+      operation: compareRelationIdentity
+      status: covered-by-invariant
+      rationale: >-
+        The normative property (polarity twins are not automatically mergeable)
+        is decided by RelationIdentityService and asserted as the
+        `pairwiseIdentity` invariant. Running getRelationStateAtTime in addition
+        shows that neither twin's evidential state borrows from the other, which
+        compareRelationIdentity alone cannot show.
+      coveredBy: [invariants.pairwiseIdentity, states]
+    conformanceClass: Core Model Conformance
+    conformanceClasses: [core-model]
+    competencyQuestions: [CQ1]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T07.md
+  - id: T08
+    title: "Re-extraction does not duplicate evidence"
+    directory: cases/T08-reextraction-no-duplication
+    operation: createEvidence
+    conformanceClass: Authoring Conformance
+    conformanceClasses: [authoring, core-model]
+    competencyQuestions: [CQ2]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T08.md
+  - id: T09
+    title: "Prospective applicability after vacatio"
+    directory: cases/T09-vacatio-applicability
+    operation: getRelationStateAtTime
+    normativeAlignment:
+      operation: evaluateSourceStateAdmissibility
+      status: covered-by-invariant
+      rationale: >-
+        The `vacatioChecks` invariant calls the grounding provider's source-state
+        admissibility primitive directly, at the publication instant and at the
+        applicability boundary -- which is the normative operation, evaluated at
+        the two instants that matter rather than only at the queried times.
+      coveredBy: [vacatioChecks, publicationDateDoesNotControlAdmission]
+    conformanceClass: Temporal Grounding Conformance
+    conformanceClasses: [temporal-grounding]
+    competencyQuestions: [CQ3]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T09.md
+  - id: T10
+    title: "Anachronistic path exclusion"
+    directory: cases/T10-anachronistic-path
+    operation: findAdmissiblePaths
+    conformanceClass: Path Conformance
+    conformanceClasses: [path]
+    competencyQuestions: [CQ7, CQ8]
+    groundingProfileId: public-legal-fixture
+    groundingProfileVersion: 0.1.0
+    caseDefinitionReference:
+      repository: tier-graph-api
+      version: 0.1.0-draft
+      path: conformance/cases/T10.md

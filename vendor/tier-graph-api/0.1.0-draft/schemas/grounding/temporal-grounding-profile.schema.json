@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/grounding/temporal-grounding-profile.schema.json",
+  "title": "TemporalGroundingProfile",
+  "description": "Declares how an implementation resolves external evidence units to controlled source states and determines temporal admissibility. Conceptually B_π = ⟨U_π, S_π, owner_π, admissible_π⟩. A conforming profile MUST provide two behavioral functions: owner_π(evidenceUnitId) -> SourceStateRef, and admissible_π(sourceStateId, queryTime, observerTime?) -> admissibility result. PROFILE AUTHORITY: the profile DEFINES what temporal admissibility means; the TIER-Graph core MUST NOT override it. This schema describes the profile's DECLARED metadata and capabilities; the functions themselves are exposed through the API's grounding operations.",
+  "type": "object",
+  "required": ["id", "name", "version", "evidenceUnitType", "sourceStateType", "admissibilitySemantics"],
+  "properties": {
+    "id": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque, unique identifier for this profile."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable profile name.",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "description": "Explicit profile version (semantic versioning recommended).",
+      "minLength": 1
+    },
+    "evidenceUnitType": {
+      "type": "string",
+      "description": "The kind of evidence unit this profile controls (e.g. 'document-fragment', 'clinical-note', 'record-entry').",
+      "minLength": 1
+    },
+    "sourceStateType": {
+      "type": "string",
+      "description": "The kind of source state that owns evidence units (e.g. 'document-version', 'record-revision').",
+      "minLength": 1
+    },
+    "admissibilitySemantics": {
+      "type": "string",
+      "description": "A precise statement of what 'admissible at time t' means for this profile (e.g. 't within the version's applicability interval'). This is the authoritative definition the core defers to.",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional prose description of the profile."
+    },
+    "documentationUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional link to profile documentation."
+    },
+    "supportedSelectors": {
+      "type": "array",
+      "description": "Evidence-selector types supported by this profile.",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "supportedTemporalCoordinates": {
+      "type": "array",
+      "description": "Temporal-coordinate kinds this profile understands (e.g. 'queryTime', 'observerTime').",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "defaultAdmissionPolicyId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Optional default AdmissionPolicy applied when the caller does not specify one."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Profile-specific properties.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

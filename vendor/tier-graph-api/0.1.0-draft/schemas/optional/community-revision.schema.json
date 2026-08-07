@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/optional/community-revision.schema.json",
+  "title": "CommunityRevision",
+  "description": "OPTIONAL EXTENSION — not part of the three-object ontological core. A non-authoritative, revision-indexed analytical artifact derived from a compatible TIER-Graph projection (e.g. a graph community detected over a time-indexed edge set). A community revision MUST NOT be reused for a temporal projection unless compatibility is proven (see `derivedFromProjectionHash`).",
+  "type": "object",
+  "required": ["id", "profileId", "queryTime", "policyId", "memberEntityIds", "memberRelationIds", "algorithm"],
+  "properties": {
+    "id": { "$ref": "../common/identifier.schema.json", "description": "Opaque identifier." },
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "The grounding profile of the projection this was derived from." },
+    "queryTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "The projection's query time." },
+    "policyId": { "$ref": "../common/identifier.schema.json", "description": "The projection's admission policy." },
+    "memberEntityIds": {
+      "type": "array",
+      "description": "Entities that are members of the community.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "memberRelationIds": {
+      "type": "array",
+      "description": "Relations internal to the community.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "algorithm": { "type": "string", "description": "The community-detection algorithm used.", "minLength": 1 },
+    "parameters": { "type": "object", "description": "Algorithm parameters.", "additionalProperties": true },
+    "derivedFromProjectionHash": {
+      "type": "string",
+      "description": "Hash of the projection this artifact was derived from, used to prove compatibility before reuse.",
+      "minLength": 1
+    },
+    "generatedAt": { "type": "string", "format": "date-time", "description": "When the artifact was generated." }
+  },
+  "additionalProperties": false
+}

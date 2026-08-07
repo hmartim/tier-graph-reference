@@ -1,0 +1,985 @@
+{
+  "implements": "tier-graph-api v0.1.0-draft",
+  "specificationVersion": "0.1.0-draft",
+  "referenceImplementationVersion": "0.1.0",
+  "fixtureSetVersion": "0.1.0",
+  "executedAt": "2026-08-07T17:49:03Z",
+  "total": 10,
+  "passed": 10,
+  "failed": 0,
+  "conformanceClasses": [
+    {
+      "name": "Authoring Conformance",
+      "status": "partial",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "note": "Partially covered: createEvidence (evidence identity and de-duplication) is implemented and exercised by T08. The remaining authoring operations (appendProvenanceActivity, recordReviewEvent) are out of scope for v0.1.0."
+    },
+    {
+      "name": "Core Model Conformance",
+      "status": "passed",
+      "total": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "name": "Path Conformance",
+      "status": "passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "name": "Query API Conformance",
+      "status": "passed",
+      "total": 4,
+      "passed": 4,
+      "failed": 0
+    },
+    {
+      "name": "Temporal Grounding Conformance",
+      "status": "passed",
+      "total": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "name": "Analytical Extension Conformance",
+      "status": "experimental",
+      "note": "Communities and causal gates are intentionally kept outside the core."
+    },
+    {
+      "name": "SAT-Graph Adapter Integration",
+      "status": "mocked",
+      "note": "Validated separately with mocked HTTP responses in tests/adapters/sat_graph."
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "T01",
+      "title": "Persistent relation across successive source states",
+      "operation": "getRelationHistory",
+      "conformanceClass": "Query API Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T01.md"
+      },
+      "normativeAlignment": {
+        "operation": "getRelationStateAtTime",
+        "status": "subsumes",
+        "rationale": "getRelationHistory returns the full state partition over the queried window, of which the normative point-in-time sample is one slice. The required invariants are asserted over every segment rather than at two chosen instants."
+      },
+      "passed": true,
+      "durationMs": 1.372,
+      "expected": {
+        "relationId": "dr-education-social-right",
+        "statePeriods": [
+          {
+            "from": "1988-10-05T00:00:00Z",
+            "to": "2000-02-14T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-edu-1988"
+            ]
+          },
+          {
+            "from": "2000-02-14T00:00:00Z",
+            "to": "2010-02-04T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-edu-2000"
+            ]
+          },
+          {
+            "from": "2010-02-04T00:00:00Z",
+            "to": "2015-09-15T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-edu-2010"
+            ]
+          },
+          {
+            "from": "2015-09-15T00:00:00Z",
+            "to": null,
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-edu-2015"
+            ]
+          }
+        ],
+        "invariants": {
+          "relationCount": 1,
+          "evidenceRecordCount": 4,
+          "r3RelationIntervalKeys": {
+            "found": 0,
+            "enforcedBy": "model-schema (extra=forbid)"
+          }
+        }
+      },
+      "actual": {
+        "relationId": "dr-education-social-right",
+        "statePeriods": [
+          {
+            "from": "1988-10-05T00:00:00Z",
+            "to": "2000-02-14T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-edu-1988"
+            ],
+            "refutingEvidenceIds": []
+          },
+          {
+            "from": "2000-02-14T00:00:00Z",
+            "to": "2010-02-04T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-edu-2000"
+            ],
+            "refutingEvidenceIds": []
+          },
+          {
+            "from": "2010-02-04T00:00:00Z",
+            "to": "2015-09-15T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-edu-2010"
+            ],
+            "refutingEvidenceIds": []
+          },
+          {
+            "from": "2015-09-15T00:00:00Z",
+            "to": null,
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-edu-2015"
+            ],
+            "refutingEvidenceIds": []
+          }
+        ],
+        "invariants": {
+          "relationCount": 1,
+          "evidenceRecordCount": 4,
+          "r3RelationIntervalKeys": {
+            "found": 0,
+            "enforcedBy": "model-schema (extra=forbid)"
+          }
+        }
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T02",
+      "title": "Relation introduced in a later source state",
+      "operation": "getRelationStateAtTime",
+      "conformanceClass": "Query API Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T02.md"
+      },
+      "normativeAlignment": null,
+      "passed": true,
+      "durationMs": 0.786,
+      "expected": {
+        "states": [
+          {
+            "profileId": "public-legal-fixture",
+            "queryTime": "1999-01-01T00:00:00Z",
+            "state": "unsupported",
+            "supportingEvidenceIds": [],
+            "refutingEvidenceIds": []
+          },
+          {
+            "profileId": "public-legal-fixture",
+            "queryTime": "2005-01-01T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-housing-2000"
+            ],
+            "refutingEvidenceIds": []
+          }
+        ],
+        "invariants": {
+          "relationCount": 1,
+          "distinctRelationCount": 1,
+          "r3RelationIntervalKeys": {
+            "found": 0,
+            "enforcedBy": "model-schema (extra=forbid)"
+          }
+        }
+      },
+      "actual": {
+        "states": [
+          {
+            "relationId": "dr-housing-social-right",
+            "profileId": "public-legal-fixture",
+            "queryTime": "1999-01-01T00:00:00Z",
+            "state": "unsupported",
+            "supportingEvidenceIds": [],
+            "refutingEvidenceIds": []
+          },
+          {
+            "relationId": "dr-housing-social-right",
+            "profileId": "public-legal-fixture",
+            "queryTime": "2005-01-01T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-housing-2000"
+            ],
+            "refutingEvidenceIds": []
+          }
+        ],
+        "invariants": {
+          "relationCount": 1,
+          "distinctRelationCount": 1,
+          "r3RelationIntervalKeys": {
+            "found": 0,
+            "enforcedBy": "model-schema (extra=forbid)"
+          }
+        },
+        "boundaryCauseRefs": []
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T03",
+      "title": "One evidence unit supports several relations",
+      "operation": "getRelationsByEvidenceUnit",
+      "conformanceClass": "Query API Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T03.md"
+      },
+      "normativeAlignment": null,
+      "passed": true,
+      "durationMs": 0.018,
+      "expected": {
+        "relationIds": [
+          "dr-factual-cause",
+          "dr-liability",
+          "dr-recourse"
+        ],
+        "predicateFamilies": [
+          "factualCausal",
+          "normativeConsequential"
+        ],
+        "count": 3
+      },
+      "actual": {
+        "relationIds": [
+          "dr-factual-cause",
+          "dr-liability",
+          "dr-recourse"
+        ],
+        "predicateFamilies": [
+          "factualCausal",
+          "normativeConsequential"
+        ],
+        "count": 3
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T04",
+      "title": "Withdrawn historical precondition",
+      "operation": "getRelationStateAtTime",
+      "conformanceClass": "Query API Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T04.md"
+      },
+      "normativeAlignment": null,
+      "passed": true,
+      "durationMs": 0.217,
+      "expected": {
+        "states": [
+          {
+            "profileId": "public-legal-fixture",
+            "queryTime": "2009-01-01T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-divorce-pre-2010"
+            ]
+          },
+          {
+            "profileId": "public-legal-fixture",
+            "queryTime": "2011-01-01T00:00:00Z",
+            "state": "unsupported",
+            "supportingEvidenceIds": []
+          }
+        ],
+        "invariants": {
+          "distinctRelationCount": 1,
+          "r3RelationIntervalKeys": {
+            "found": 0,
+            "enforcedBy": "model-schema (extra=forbid)"
+          }
+        },
+        "historicalEvidenceIds": [
+          "re-divorce-pre-2010"
+        ],
+        "historicalEvidenceRetained": true,
+        "historicalEvidenceTemporallyInadmissibleAtLateTime": true,
+        "boundaryCauseRefs": [
+          "action-ec66-2010"
+        ]
+      },
+      "actual": {
+        "states": [
+          {
+            "relationId": "dr-separation-precondition-divorce",
+            "profileId": "public-legal-fixture",
+            "queryTime": "2009-01-01T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-divorce-pre-2010"
+            ],
+            "refutingEvidenceIds": []
+          },
+          {
+            "relationId": "dr-separation-precondition-divorce",
+            "profileId": "public-legal-fixture",
+            "queryTime": "2011-01-01T00:00:00Z",
+            "state": "unsupported",
+            "supportingEvidenceIds": [],
+            "refutingEvidenceIds": []
+          }
+        ],
+        "invariants": {
+          "relationCount": 1,
+          "distinctRelationCount": 1,
+          "r3RelationIntervalKeys": {
+            "found": 0,
+            "enforcedBy": "model-schema (extra=forbid)"
+          }
+        },
+        "boundaryCauseRefs": [
+          "action-ec66-2010"
+        ],
+        "historicalEvidenceIds": [
+          "re-divorce-pre-2010"
+        ],
+        "historicalEvidenceRetained": true,
+        "historicalEvidenceTemporallyInadmissibleAtLateTime": true,
+        "reviewStatusAtLateTime": [
+          "accepted"
+        ]
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T05",
+      "title": "Composite cross-item support",
+      "operation": "evaluateEvidenceAdmissibility",
+      "conformanceClass": "Temporal Grounding Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T05.md"
+      },
+      "normativeAlignment": null,
+      "passed": true,
+      "durationMs": 0.065,
+      "expected": {
+        "results": [
+          {
+            "at": "2024-06-01T00:00:00Z",
+            "admissible": true,
+            "anchorResults": {
+              "tu-definition": true,
+              "tu-duty": true
+            }
+          },
+          {
+            "at": "2025-06-01T00:00:00Z",
+            "admissible": false,
+            "anchorResults": {
+              "tu-definition": false,
+              "tu-duty": true
+            }
+          }
+        ],
+        "semantics": "conjunctive",
+        "hasPartialWitness": true
+      },
+      "actual": {
+        "results": [
+          {
+            "at": "2024-06-01T00:00:00Z",
+            "admissible": true,
+            "anchorResults": {
+              "tu-definition": true,
+              "tu-duty": true
+            }
+          },
+          {
+            "at": "2025-06-01T00:00:00Z",
+            "admissible": false,
+            "anchorResults": {
+              "tu-definition": false,
+              "tu-duty": true
+            }
+          }
+        ],
+        "semantics": "conjunctive",
+        "partialWitnessCount": 1,
+        "hasPartialWitness": true
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T06",
+      "title": "Unknown versus absent qualifier",
+      "operation": "compareRelationIdentity",
+      "conformanceClass": "Core Model Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T06.md"
+      },
+      "normativeAlignment": null,
+      "passed": true,
+      "durationMs": 0.04,
+      "expected": {
+        "decision": "unresolved",
+        "mergeAllowed": false,
+        "blockingDimensions": [
+          "condition"
+        ],
+        "reason": "unknown is not equivalent to absent"
+      },
+      "actual": {
+        "decision": "unresolved",
+        "mergeAllowed": false,
+        "blockingDimensions": [
+          "condition"
+        ],
+        "differingDimensions": [],
+        "reason": "unknown is not equivalent to absent"
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T07",
+      "title": "Positive and negative propositions remain distinct",
+      "operation": "getRelationStateAtTime",
+      "conformanceClass": "Core Model Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T07.md"
+      },
+      "normativeAlignment": {
+        "operation": "compareRelationIdentity",
+        "status": "covered-by-invariant",
+        "rationale": "The normative property (polarity twins are not automatically mergeable) is decided by RelationIdentityService and asserted as the `pairwiseIdentity` invariant. Running getRelationStateAtTime in addition shows that neither twin's evidential state borrows from the other, which compareRelationIdentity alone cannot show.",
+        "coveredBy": [
+          "invariants.pairwiseIdentity",
+          "states"
+        ]
+      },
+      "passed": true,
+      "durationMs": 0.191,
+      "expected": {
+        "states": [
+          {
+            "relationId": "dr-x-causes-y-positive",
+            "profileId": "public-legal-fixture",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-positive-support"
+            ],
+            "refutingEvidenceIds": []
+          },
+          {
+            "relationId": "dr-x-causes-y-negative",
+            "profileId": "public-legal-fixture",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-negative-support"
+            ],
+            "refutingEvidenceIds": []
+          }
+        ],
+        "invariants": {
+          "distinctRelationCount": 2,
+          "pairwiseIdentity": [
+            {
+              "relationIdA": "dr-x-causes-y-negative",
+              "relationIdB": "dr-x-causes-y-positive",
+              "decision": "distinct",
+              "mergeAllowed": false,
+              "differingDimensions": [
+                "polarity"
+              ]
+            }
+          ]
+        }
+      },
+      "actual": {
+        "states": [
+          {
+            "relationId": "dr-x-causes-y-positive",
+            "profileId": "public-legal-fixture",
+            "queryTime": "2026-01-01T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-positive-support"
+            ],
+            "refutingEvidenceIds": []
+          },
+          {
+            "relationId": "dr-x-causes-y-negative",
+            "profileId": "public-legal-fixture",
+            "queryTime": "2026-01-01T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-negative-support"
+            ],
+            "refutingEvidenceIds": []
+          }
+        ],
+        "invariants": {
+          "relationCount": 2,
+          "distinctRelationCount": 2,
+          "pairwiseIdentity": [
+            {
+              "relationIdA": "dr-x-causes-y-negative",
+              "relationIdB": "dr-x-causes-y-positive",
+              "decision": "distinct",
+              "mergeAllowed": false,
+              "differingDimensions": [
+                "polarity"
+              ]
+            }
+          ],
+          "r3RelationIntervalKeys": {
+            "found": 0,
+            "enforcedBy": "model-schema (extra=forbid)"
+          }
+        }
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T08",
+      "title": "Re-extraction does not duplicate evidence",
+      "operation": "createEvidence",
+      "conformanceClass": "Authoring Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T08.md"
+      },
+      "normativeAlignment": null,
+      "passed": true,
+      "durationMs": 0.244,
+      "expected": {
+        "outcomes": [
+          {
+            "evidenceId": "re-a-depends-b",
+            "created": true,
+            "duplicateKeyDetected": false,
+            "provenanceActivityIds": [
+              "pa-extract-v1"
+            ]
+          },
+          {
+            "evidenceId": "re-a-depends-b",
+            "created": false,
+            "duplicateKeyDetected": true,
+            "provenanceActivityIds": [
+              "pa-extract-v1",
+              "pa-extract-v2"
+            ]
+          }
+        ],
+        "evidenceRecordCount": 1,
+        "independentEvidenceCount": 1,
+        "distinctSubmittedKeyCount": 1,
+        "stableEvidenceId": true,
+        "activityIds": [
+          "pa-extract-v1",
+          "pa-extract-v2"
+        ]
+      },
+      "actual": {
+        "outcomes": [
+          {
+            "evidenceId": "re-a-depends-b",
+            "created": true,
+            "duplicateKeyDetected": false,
+            "provenanceActivityIds": [
+              "pa-extract-v1"
+            ]
+          },
+          {
+            "evidenceId": "re-a-depends-b",
+            "created": false,
+            "duplicateKeyDetected": true,
+            "provenanceActivityIds": [
+              "pa-extract-v1",
+              "pa-extract-v2"
+            ]
+          }
+        ],
+        "evidenceRecordCount": 1,
+        "independentEvidenceCount": 1,
+        "distinctSubmittedKeyCount": 1,
+        "stableEvidenceId": true,
+        "activityIds": [
+          "pa-extract-v1",
+          "pa-extract-v2"
+        ]
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T09",
+      "title": "Prospective applicability after vacatio",
+      "operation": "getRelationStateAtTime",
+      "conformanceClass": "Temporal Grounding Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T09.md"
+      },
+      "normativeAlignment": {
+        "operation": "evaluateSourceStateAdmissibility",
+        "status": "covered-by-invariant",
+        "rationale": "The `vacatioChecks` invariant calls the grounding provider's source-state admissibility primitive directly, at the publication instant and at the applicability boundary -- which is the normative operation, evaluated at the two instants that matter rather than only at the queried times.",
+        "coveredBy": [
+          "vacatioChecks",
+          "publicationDateDoesNotControlAdmission"
+        ]
+      },
+      "passed": true,
+      "durationMs": 0.11,
+      "expected": {
+        "states": [
+          {
+            "profileId": "public-legal-fixture",
+            "queryTime": "2026-06-30T00:00:00Z",
+            "state": "unsupported",
+            "supportingEvidenceIds": []
+          },
+          {
+            "profileId": "public-legal-fixture",
+            "queryTime": "2026-07-01T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-new-duty"
+            ]
+          }
+        ],
+        "vacatioChecks": [
+          {
+            "sourceStateId": "v-new-duty",
+            "publishedAt": "2026-01-10T00:00:00Z",
+            "admissibleFrom": "2026-07-01T00:00:00Z",
+            "admissibleAtPublication": false,
+            "admissibleAtApplicability": true
+          }
+        ],
+        "publicationDateDoesNotControlAdmission": true
+      },
+      "actual": {
+        "states": [
+          {
+            "relationId": "dr-new-duty",
+            "profileId": "public-legal-fixture",
+            "queryTime": "2026-06-30T00:00:00Z",
+            "state": "unsupported",
+            "supportingEvidenceIds": [],
+            "refutingEvidenceIds": []
+          },
+          {
+            "relationId": "dr-new-duty",
+            "profileId": "public-legal-fixture",
+            "queryTime": "2026-07-01T00:00:00Z",
+            "state": "supported",
+            "supportingEvidenceIds": [
+              "re-new-duty"
+            ],
+            "refutingEvidenceIds": []
+          }
+        ],
+        "invariants": {
+          "relationCount": 1,
+          "distinctRelationCount": 1,
+          "r3RelationIntervalKeys": {
+            "found": 0,
+            "enforcedBy": "model-schema (extra=forbid)"
+          }
+        },
+        "boundaryCauseRefs": [],
+        "vacatioChecks": [
+          {
+            "sourceStateId": "v-new-duty",
+            "publishedAt": "2026-01-10T00:00:00Z",
+            "admissibleFrom": "2026-07-01T00:00:00Z",
+            "admissibleAtPublication": false,
+            "admissibleAtApplicability": true
+          }
+        ],
+        "publicationDateDoesNotControlAdmission": true
+      },
+      "explanation": []
+    },
+    {
+      "caseId": "T10",
+      "title": "Anachronistic path exclusion",
+      "operation": "findAdmissiblePaths",
+      "conformanceClass": "Path Conformance",
+      "implementationVersion": "0.1.0",
+      "groundingProfileId": "public-legal-fixture",
+      "groundingProfileVersion": "0.1.0",
+      "caseDefinitionReference": {
+        "repository": "tier-graph-api",
+        "version": "0.1.0-draft",
+        "path": "conformance/cases/T10.md"
+      },
+      "normativeAlignment": null,
+      "passed": true,
+      "durationMs": 0.398,
+      "expected": {
+        "results": [
+          {
+            "at": "2025-01-01T00:00:00Z",
+            "paths": [],
+            "trace": {
+              "projectionIsNonTrivial": true,
+              "leakageWitnessRelationIds": [],
+              "candidateGenerationUsesProjectedGraph": true
+            },
+            "excluded": [
+              {
+                "relationId": "dr-b-c",
+                "reasonCode": "EVIDENCE_SOURCE_STATE_NOT_ADMISSIBLE",
+                "evidenceId": "re-b-c-future"
+              }
+            ]
+          },
+          {
+            "at": "2026-01-01T00:00:00Z",
+            "paths": [
+              {
+                "id": "de-a->de-c#0",
+                "sourceEntityId": "de-a",
+                "targetEntityId": "de-c",
+                "profileId": "public-legal-fixture",
+                "queryTime": "2026-01-01T00:00:00Z",
+                "policyId": "strict-supported",
+                "admissible": true,
+                "steps": [
+                  {
+                    "ordinal": 0,
+                    "relationId": "dr-a-b",
+                    "fromEntityId": "de-a",
+                    "toEntityId": "de-b",
+                    "admitted": true,
+                    "direction": "outgoing",
+                    "evidentialState": {
+                      "relationId": "dr-a-b",
+                      "profileId": "public-legal-fixture",
+                      "queryTime": "2026-01-01T00:00:00Z",
+                      "state": "supported",
+                      "supportingEvidenceIds": [
+                        "re-a-b"
+                      ],
+                      "refutingEvidenceIds": [],
+                      "policyId": "strict-supported"
+                    }
+                  },
+                  {
+                    "ordinal": 1,
+                    "relationId": "dr-b-c",
+                    "fromEntityId": "de-b",
+                    "toEntityId": "de-c",
+                    "admitted": true,
+                    "direction": "outgoing",
+                    "evidentialState": {
+                      "relationId": "dr-b-c",
+                      "profileId": "public-legal-fixture",
+                      "queryTime": "2026-01-01T00:00:00Z",
+                      "state": "supported",
+                      "supportingEvidenceIds": [
+                        "re-b-c-future"
+                      ],
+                      "refutingEvidenceIds": [],
+                      "policyId": "strict-supported"
+                    }
+                  }
+                ]
+              }
+            ],
+            "trace": {
+              "projectionIsNonTrivial": false,
+              "leakageWitnessRelationIds": [],
+              "candidateGenerationUsesProjectedGraph": true
+            }
+          }
+        ],
+        "policy": {
+          "id": "strict-supported",
+          "admittedStates": [
+            "supported"
+          ],
+          "groundingReviewStatuses": [
+            "accepted"
+          ]
+        }
+      },
+      "actual": {
+        "results": [
+          {
+            "at": "2025-01-01T00:00:00Z",
+            "paths": [],
+            "trace": {
+              "offeredRelationIds": [
+                "dr-a-b"
+              ],
+              "visitedRelationIds": [
+                "dr-a-b"
+              ],
+              "returnedRelationIds": [],
+              "projectedRelationIds": [
+                "dr-a-b"
+              ],
+              "allTimeRelationCount": 2,
+              "projectedRelationCount": 1,
+              "projectionIsNonTrivial": true,
+              "leakageWitnessRelationIds": [],
+              "candidateGenerationUsesProjectedGraph": true
+            },
+            "excluded": [
+              {
+                "relationId": "dr-b-c",
+                "reasonCode": "EVIDENCE_SOURCE_STATE_NOT_ADMISSIBLE",
+                "evidenceId": "re-b-c-future"
+              }
+            ]
+          },
+          {
+            "at": "2026-01-01T00:00:00Z",
+            "paths": [
+              {
+                "id": "de-a->de-c#0",
+                "sourceEntityId": "de-a",
+                "targetEntityId": "de-c",
+                "steps": [
+                  {
+                    "ordinal": 0,
+                    "relationId": "dr-a-b",
+                    "fromEntityId": "de-a",
+                    "toEntityId": "de-b",
+                    "evidentialState": {
+                      "relationId": "dr-a-b",
+                      "profileId": "public-legal-fixture",
+                      "queryTime": "2026-01-01T00:00:00Z",
+                      "state": "supported",
+                      "supportingEvidenceIds": [
+                        "re-a-b"
+                      ],
+                      "refutingEvidenceIds": [],
+                      "policyId": "strict-supported"
+                    },
+                    "admitted": true,
+                    "direction": "outgoing"
+                  },
+                  {
+                    "ordinal": 1,
+                    "relationId": "dr-b-c",
+                    "fromEntityId": "de-b",
+                    "toEntityId": "de-c",
+                    "evidentialState": {
+                      "relationId": "dr-b-c",
+                      "profileId": "public-legal-fixture",
+                      "queryTime": "2026-01-01T00:00:00Z",
+                      "state": "supported",
+                      "supportingEvidenceIds": [
+                        "re-b-c-future"
+                      ],
+                      "refutingEvidenceIds": [],
+                      "policyId": "strict-supported"
+                    },
+                    "admitted": true,
+                    "direction": "outgoing"
+                  }
+                ],
+                "profileId": "public-legal-fixture",
+                "queryTime": "2026-01-01T00:00:00Z",
+                "policyId": "strict-supported",
+                "admissible": true
+              }
+            ],
+            "trace": {
+              "offeredRelationIds": [
+                "dr-a-b",
+                "dr-b-c"
+              ],
+              "visitedRelationIds": [
+                "dr-a-b",
+                "dr-b-c"
+              ],
+              "returnedRelationIds": [
+                "dr-a-b",
+                "dr-b-c"
+              ],
+              "projectedRelationIds": [
+                "dr-a-b",
+                "dr-b-c"
+              ],
+              "allTimeRelationCount": 2,
+              "projectedRelationCount": 2,
+              "projectionIsNonTrivial": false,
+              "leakageWitnessRelationIds": [],
+              "candidateGenerationUsesProjectedGraph": true
+            }
+          }
+        ],
+        "policy": {
+          "id": "strict-supported",
+          "admittedStates": [
+            "supported"
+          ],
+          "groundingReviewStatuses": [
+            "accepted"
+          ]
+        }
+      },
+      "explanation": []
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "states": [
+    {
+      "profileId": "public-legal-fixture",
+      "queryTime": "1999-01-01T00:00:00Z",
+      "state": "unsupported",
+      "supportingEvidenceIds": [],
+      "refutingEvidenceIds": []
+    },
+    {
+      "profileId": "public-legal-fixture",
+      "queryTime": "2005-01-01T00:00:00Z",
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-housing-2000"
+      ],
+      "refutingEvidenceIds": []
+    }
+  ],
+  "invariants": {
+    "relationCount": 1,
+    "distinctRelationCount": 1,
+    "r3RelationIntervalKeys": {
+      "found": 0,
+      "enforcedBy": "model-schema (extra=forbid)"
+    }
+  }
+}

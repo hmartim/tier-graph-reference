@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "at": "2024-06-01T00:00:00Z",
+      "admissible": true,
+      "anchorResults": {
+        "tu-definition": true,
+        "tu-duty": true
+      }
+    },
+    {
+      "at": "2025-06-01T00:00:00Z",
+      "admissible": false,
+      "anchorResults": {
+        "tu-definition": false,
+        "tu-duty": true
+      }
+    }
+  ],
+  "semantics": "conjunctive",
+  "hasPartialWitness": true
+}

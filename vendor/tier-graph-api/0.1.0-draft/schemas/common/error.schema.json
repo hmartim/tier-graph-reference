@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/common/error.schema.json",
+  "title": "Error",
+  "description": "A structured error response. `code` is a stable, machine-readable identifier that clients MAY branch on; `message` is a human-readable explanation and MUST NOT be relied upon for logic. `details` carries optional structured context.",
+  "type": "object",
+  "required": ["code", "message"],
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "A stable, machine-readable error code (e.g. RESOURCE_NOT_FOUND, INVALID_PARAMETER, PROFILE_UNAVAILABLE, IDENTITY_UNRESOLVED).",
+      "minLength": 1,
+      "examples": ["RESOURCE_NOT_FOUND", "INVALID_PARAMETER"]
+    },
+    "message": {
+      "type": "string",
+      "description": "A human-readable description of the error. Not intended for programmatic branching.",
+      "minLength": 1
+    },
+    "details": {
+      "type": "object",
+      "description": "Optional structured context (offending field, profile id, temporal coordinate, ...).",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

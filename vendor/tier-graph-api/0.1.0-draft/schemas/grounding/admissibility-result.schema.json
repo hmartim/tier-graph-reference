@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/grounding/admissibility-result.schema.json",
+  "title": "AdmissibilityResult",
+  "description": "Reports whether a source state (or an entire evidence basis) is admissible at a temporal coordinate under a profile, and explains the decision. The result comes FROM the profile; the TIER-Graph core MUST NOT fabricate or infer a competing decision. For conjunctive evidence, the basis is admissible only when every anchor resolves to an admissible source state (see `anchorResults`).",
+  "type": "object",
+  "required": ["admissible", "profileId", "queryTime"],
+  "properties": {
+    "admissible": {
+      "type": "boolean",
+      "description": "Whether the subject is admissible at the given temporal coordinate under the profile."
+    },
+    "profileId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The profile that produced this result."
+    },
+    "queryTime": {
+      "$ref": "../common/temporal-coordinate.schema.json",
+      "description": "The query time (`at`) the decision was evaluated for."
+    },
+    "observerTime": {
+      "$ref": "../common/temporal-coordinate.schema.json",
+      "description": "Optional observer time for bitemporal evaluation."
+    },
+    "sourceState": {
+      "$ref": "./source-state-ref.schema.json",
+      "description": "The source state evaluated, when the subject is a single source state."
+    },
+    "reasonCode": {
+      "type": "string",
+      "description": "Stable, machine-readable reason code for the decision.",
+      "minLength": 1
+    },
+    "reason": {
+      "type": "string",
+      "description": "Human-readable explanation."
+    },
+    "policyId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Optional admission policy in force, when relevant to the decision."
+    },
+    "anchorResults": {
+      "type": "array",
+      "description": "Per-anchor admissibility, for evaluating a conjunctive evidence basis. The basis is admissible only if all are admissible.",
+      "items": {
+        "type": "object",
+        "required": ["admissible"],
+        "properties": {
+          "evidenceUnitId": {
+            "$ref": "../common/identifier.schema.json",
+            "description": "The anchored evidence unit."
+          },
+          "sourceState": { "$ref": "./source-state-ref.schema.json" },
+          "admissible": { "type": "boolean" },
+          "reasonCode": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "details": {
+      "type": "object",
+      "description": "Optional structured profile-specific details.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

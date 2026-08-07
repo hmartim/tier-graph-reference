@@ -1,0 +1,184 @@
+{
+  "caseId": "T03",
+  "title": "One evidence unit supports several relations",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "getRelationsByEvidenceUnit",
+  "entities": [
+    {
+      "id": "de-agent-conduct",
+      "canonicalLabel": "agent conduct in official capacity",
+      "entityType": "event",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-third-party-damage",
+      "canonicalLabel": "damage to a third party",
+      "entityType": "state",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-attributable-damage",
+      "canonicalLabel": "attributable damage",
+      "entityType": "state",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-public-liability",
+      "canonicalLabel": "public-entity liability",
+      "entityType": "legalConsequence",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-intent-negligence",
+      "canonicalLabel": "intent or negligence",
+      "entityType": "condition",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-recourse",
+      "canonicalLabel": "right of recourse",
+      "entityType": "legalPower",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-factual-cause",
+      "sourceEntityId": "de-agent-conduct",
+      "predicate": "CAUSES",
+      "targetEntityId": "de-third-party-damage",
+      "predicateFamily": "factualCausal",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "specified",
+          "value": "acting in official capacity"
+        },
+        "scope": {
+          "status": "specified",
+          "value": "covered public-service entities"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "specified",
+          "value": [
+            "agent",
+            "third party"
+          ]
+        }
+      },
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "dr-liability",
+      "sourceEntityId": "de-attributable-damage",
+      "predicate": "TRIGGERS_LEGAL_LIABILITY",
+      "targetEntityId": "de-public-liability",
+      "predicateFamily": "normativeConsequential",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "specified",
+          "value": "damage caused by covered agent"
+        },
+        "scope": {
+          "status": "specified",
+          "value": "covered entities"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "specified",
+          "value": [
+            "entity",
+            "agent",
+            "third party"
+          ]
+        }
+      },
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "dr-recourse",
+      "sourceEntityId": "de-intent-negligence",
+      "predicate": "SATISFIES_PRECONDITION_FOR",
+      "targetEntityId": "de-recourse",
+      "predicateFamily": "normativeConsequential",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "specified",
+          "value": [
+            "responsible agent"
+          ]
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "re-art37-cause",
+      "relationId": "dr-factual-cause",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art37-p6"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-art37-liability",
+      "relationId": "dr-liability",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art37-p6"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-art37-recourse",
+      "relationId": "dr-recourse",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art37-p6"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    }
+  ]
+}

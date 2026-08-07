@@ -1,0 +1,2 @@
+820c89b5c6f4a387fc76c82759463987d9b7fabdcfd92dc4397f634a3bb5216e
+sha256 over sorted(relative_path + file_bytes) of every *.json under schemas/.

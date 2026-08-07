@@ -1,0 +1,11 @@
+{
+  "operation": "getRelationStateAtTime",
+  "arguments": {
+    "relationIds": [
+      "dr-x-causes-y-positive",
+      "dr-x-causes-y-negative"
+    ],
+    "profileId": "public-legal-fixture",
+    "at": "2026-01-01T00:00:00Z"
+  }
+}

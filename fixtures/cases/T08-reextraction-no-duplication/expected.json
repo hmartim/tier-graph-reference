@@ -1,0 +1,29 @@
+{
+  "outcomes": [
+    {
+      "evidenceId": "re-a-depends-b",
+      "created": true,
+      "duplicateKeyDetected": false,
+      "provenanceActivityIds": [
+        "pa-extract-v1"
+      ]
+    },
+    {
+      "evidenceId": "re-a-depends-b",
+      "created": false,
+      "duplicateKeyDetected": true,
+      "provenanceActivityIds": [
+        "pa-extract-v1",
+        "pa-extract-v2"
+      ]
+    }
+  ],
+  "evidenceRecordCount": 1,
+  "independentEvidenceCount": 1,
+  "distinctSubmittedKeyCount": 1,
+  "stableEvidenceId": true,
+  "activityIds": [
+    "pa-extract-v1",
+    "pa-extract-v2"
+  ]
+}

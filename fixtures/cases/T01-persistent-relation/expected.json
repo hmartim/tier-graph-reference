@@ -1,0 +1,45 @@
+{
+  "relationId": "dr-education-social-right",
+  "statePeriods": [
+    {
+      "from": "1988-10-05T00:00:00Z",
+      "to": "2000-02-14T00:00:00Z",
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-edu-1988"
+      ]
+    },
+    {
+      "from": "2000-02-14T00:00:00Z",
+      "to": "2010-02-04T00:00:00Z",
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-edu-2000"
+      ]
+    },
+    {
+      "from": "2010-02-04T00:00:00Z",
+      "to": "2015-09-15T00:00:00Z",
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-edu-2010"
+      ]
+    },
+    {
+      "from": "2015-09-15T00:00:00Z",
+      "to": null,
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-edu-2015"
+      ]
+    }
+  ],
+  "invariants": {
+    "relationCount": 1,
+    "evidenceRecordCount": 4,
+    "r3RelationIntervalKeys": {
+      "found": 0,
+      "enforcedBy": "model-schema (extra=forbid)"
+    }
+  }
+}

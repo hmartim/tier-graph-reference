@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/core/derived-entity.schema.json",
+  "title": "DerivedEntity",
+  "description": "A normalized referent that participates in one or more derived propositions. It may represent a concept, actor, institution, event, state, condition, capability, duty, permission, prohibition, legal power, consequence, outcome, or any domain-specific referent. Identity rule: labels and aliases do NOT define identity — implementations MUST use the opaque `id`. Two candidates MAY be merged only when they denote the same referent under compatible type and scope; uncertain candidates MUST remain separate (or be linked by a non-equivalence relation such as `possiblySameAs`). A DerivedEntity is NOT an authoritative source object and does not replace a source system's canonical identifiers.",
+  "type": "object",
+  "required": ["id", "canonicalLabel", "entityType", "reviewStatus"],
+  "properties": {
+    "id": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque, unique identifier for this entity. Identity is bound to this value, never to labels."
+    },
+    "canonicalLabel": {
+      "type": "string",
+      "description": "A human-readable canonical label. For display and search only; it does NOT define identity.",
+      "minLength": 1
+    },
+    "entityType": {
+      "type": "string",
+      "description": "A profile-defined type for the referent (e.g. 'concept', 'actor', 'duty', 'event'). The core does not enumerate types.",
+      "minLength": 1
+    },
+    "reviewStatus": {
+      "$ref": "../common/review-status.schema.json",
+      "description": "Curation lifecycle status of this entity."
+    },
+    "aliases": {
+      "type": "array",
+      "description": "Alternative labels. Like canonicalLabel, aliases never define identity.",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional prose description of the referent."
+    },
+    "externalIdentifiers": {
+      "type": "array",
+      "description": "Cross-references to identifiers controlled by external systems. These do not confer TIER-Graph identity.",
+      "items": { "$ref": "../common/external-identifier.schema.json" }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Flexible profile-specific properties. SHOULD use recognized vocabularies for interoperability.",
+      "additionalProperties": true
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this entity record was created (record time, not domain time)."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this entity record was last updated (record time, not domain time)."
+    }
+  },
+  "additionalProperties": false
+}

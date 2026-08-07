@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this reference implementation, please cite it as below."
+title: "TIER-Graph Reference Implementation and Conformance Fixtures"
+abstract: >-
+  Reference implementation and executable conformance fixtures for the
+  TIER-Graph API: temporally indexed, evidence-linked derived relations
+  over pluggable temporal grounding profiles.
+type: software
+version: 0.1.0
+date-released: 2026-08-07
+license: Apache-2.0
+repository-code: "https://github.com/hmartim/tier-graph-reference"
+keywords:
+  - knowledge-graphs
+  - temporal-knowledge-graphs
+  - ontology
+  - provenance
+  - evidence
+  - conformance-testing
+  - legal-ai
+authors:
+  - family-names: "de Martim"
+    given-names: "Hudson"
+references:
+  - type: article
+    title: "Deterministic Legal Agents: A Canonical Primitive API for Auditable Reasoning over Temporal Knowledge Graphs"
+    url: "https://arxiv.org/abs/2510.06002"
+  - type: article
+    title: "An Ontology-Driven Graph RAG for Legal Norms: A Structural, Temporal, and Deterministic Approach"
+    url: "https://arxiv.org/abs/2505.00039"

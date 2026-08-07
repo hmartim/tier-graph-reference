@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/explain-artifact-exclusion-request.schema.json",
+  "title": "ExplainArtifactExclusionRequest",
+  "description": "Request body for explainArtifactExclusion (experimental analytical extension). Explains why a community revision, summary, or causal gate was excluded from a time-indexed projection because of temporal-topology incompatibility.",
+  "type": "object",
+  "required": ["subjectType", "subjectId", "profileId", "at", "policyId"],
+  "properties": {
+    "subjectType": { "type": "string", "enum": ["communityRevision", "causalGate"], "description": "The kind of analytical artifact." },
+    "subjectId": { "$ref": "../common/identifier.schema.json", "description": "Identifier of the artifact." },
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "Grounding profile." },
+    "at": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Query time." },
+    "policyId": { "$ref": "../common/identifier.schema.json", "description": "Admission policy." }
+  },
+  "additionalProperties": false
+}

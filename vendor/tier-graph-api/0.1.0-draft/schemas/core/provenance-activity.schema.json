@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/core/provenance-activity.schema.json",
+  "title": "ProvenanceActivity",
+  "description": "A record of how an entity, relation candidate, or evidence record was generated, reprocessed, reviewed, or verified. RULE: confidence belongs to an ACTIVITY or assessment, not to immutable source evidence. Multiple activities over the SAME evidence occurrence MUST NOT inflate the number of independent evidence records (see RelationEvidence.EvidenceKey).",
+  "type": "object",
+  "required": ["id", "activityType", "startedAt"],
+  "properties": {
+    "id": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque, unique identifier for this activity."
+    },
+    "activityType": {
+      "type": "string",
+      "description": "The kind of activity.",
+      "enum": ["extraction", "curation", "review", "verification", "import"]
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the activity started."
+    },
+    "endedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the activity ended, if known."
+    },
+    "agent": {
+      "$ref": "../common/agent-ref.schema.json",
+      "description": "The responsible person or organization."
+    },
+    "software": {
+      "$ref": "../common/agent-ref.schema.json",
+      "description": "The software component involved (kind = software)."
+    },
+    "model": {
+      "$ref": "../common/agent-ref.schema.json",
+      "description": "The model involved (kind = model)."
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Parameters that governed the activity.",
+      "additionalProperties": true
+    },
+    "confidence": {
+      "type": "number",
+      "description": "Confidence produced by THIS activity/assessment. Belongs to the activity, not to the evidence.",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "inputIds": {
+      "type": "array",
+      "description": "Identifiers of inputs consumed by the activity.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "outputIds": {
+      "type": "array",
+      "description": "Identifiers of outputs produced by the activity.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Profile-specific properties.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

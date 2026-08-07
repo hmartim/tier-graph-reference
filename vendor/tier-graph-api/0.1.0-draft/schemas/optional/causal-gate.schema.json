@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/optional/causal-gate.schema.json",
+  "title": "CausalGate",
+  "description": "OPTIONAL EXTENSION — not part of the three-object ontological core. A non-authoritative analytical artifact connecting compatible community revisions through one or more supporting relations. A gate MUST be excluded if its supporting relations or its source/target community revisions are incompatible with the requested projection.",
+  "type": "object",
+  "required": ["id", "sourceCommunityRevisionId", "targetCommunityRevisionId", "supportingRelationIds"],
+  "properties": {
+    "id": { "$ref": "../common/identifier.schema.json", "description": "Opaque identifier." },
+    "sourceCommunityRevisionId": { "$ref": "../common/identifier.schema.json", "description": "The source community revision." },
+    "targetCommunityRevisionId": { "$ref": "../common/identifier.schema.json", "description": "The target community revision." },
+    "supportingRelationIds": {
+      "type": "array",
+      "description": "Relations that support the gate. The gate is excluded if any is incompatible with the projection.",
+      "minItems": 1,
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "direction": { "type": "string", "description": "Optional direction descriptor for the gate." },
+    "gateType": { "type": "string", "description": "Optional profile-defined gate type." },
+    "confidence": { "type": "number", "description": "Optional confidence of the analytical assertion.", "minimum": 0, "maximum": 1 },
+    "generatedAt": { "type": "string", "format": "date-time", "description": "When the gate was generated." }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/grounding/source-state-ref.schema.json",
+  "title": "SourceStateRef",
+  "description": "A reference to the temporally controlled state that OWNS an evidence unit. It is normally RETURNED by a grounding profile (via owner resolution) and need not be persisted in the TIER-Graph database. The profile is authoritative for the temporal admissibility of the source state. `sourceStateId` identifies a source state (e.g. a document version) and the optional `sourceObjectId` the canonical source object it belongs to (e.g. the work/record it is a version of). The TIER-Graph core MUST NOT copy the source state's temporal interval onto a DerivedRelation.",
+  "type": "object",
+  "required": ["profileId", "sourceStateId"],
+  "properties": {
+    "profileId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Identifier of the TemporalGroundingProfile that controls this source state."
+    },
+    "sourceStateId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque identifier of the source state within the profile's substrate."
+    },
+    "sourceObjectId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Optional identifier of the canonical source object the state belongs to (e.g. the item/work whose version this is)."
+    },
+    "stateType": {
+      "type": "string",
+      "description": "Optional profile-defined state type (e.g. 'version')."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Profile-specific properties. MUST NOT be relied upon by the core for temporal logic.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

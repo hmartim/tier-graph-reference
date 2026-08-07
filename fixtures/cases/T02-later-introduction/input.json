@@ -1,0 +1,92 @@
+{
+  "caseId": "T02",
+  "title": "Relation introduced in a later source state",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "getRelationStateAtTime",
+  "entities": [
+    {
+      "id": "de-housing",
+      "canonicalLabel": "housing",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-social-right",
+      "canonicalLabel": "social right",
+      "entityType": "legalCategory",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-housing-social-right",
+      "sourceEntityId": "de-housing",
+      "predicate": "IS_RECOGNIZED_AS",
+      "targetEntityId": "de-social-right",
+      "predicateFamily": "classificatory",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "re-housing-2000",
+      "relationId": "dr-housing-social-right",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art6-2000"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-housing-2010",
+      "relationId": "dr-housing-social-right",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art6-2010"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-housing-2015",
+      "relationId": "dr-housing-social-right",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art6-2015"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "relationIds": [
+    "dr-factual-cause",
+    "dr-liability",
+    "dr-recourse"
+  ],
+  "predicateFamilies": [
+    "factualCausal",
+    "normativeConsequential"
+  ],
+  "count": 3
+}

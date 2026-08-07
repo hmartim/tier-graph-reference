@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/find-admissible-paths-request.schema.json",
+  "title": "FindAdmissiblePathsRequest",
+  "description": "Request body for findAdmissiblePaths (CQ7). Candidate paths MUST be generated over the time-indexed projection for ⟨profileId, at, policyId⟩ — never over an all-time graph filtered afterward (see spec/08).",
+  "type": "object",
+  "required": ["sourceEntityId", "targetEntityId", "profileId", "at", "policyId"],
+  "properties": {
+    "sourceEntityId": { "$ref": "../common/identifier.schema.json", "description": "Start entity." },
+    "targetEntityId": { "$ref": "../common/identifier.schema.json", "description": "End entity." },
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "Grounding profile." },
+    "at": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Query time the projection is built for." },
+    "observerTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Optional observer time (bitemporal)." },
+    "policyId": { "$ref": "../common/identifier.schema.json", "description": "Admission policy." },
+    "maxDepth": { "type": "integer", "minimum": 1, "description": "Maximum path length." },
+    "predicateFamilies": {
+      "type": "array",
+      "description": "Restrict traversal to these predicate families.",
+      "items": {
+        "type": "string",
+        "enum": ["classificatory", "definitional", "normativeDependency", "institutional", "procedural", "factualCausal", "attributional", "normativeConsequential"]
+      }
+    },
+    "direction": { "type": "string", "enum": ["outgoing", "incoming", "both"], "description": "Traversal direction." },
+    "limit": { "type": "integer", "minimum": 1, "description": "Maximum number of paths to return." }
+  },
+  "additionalProperties": false
+}

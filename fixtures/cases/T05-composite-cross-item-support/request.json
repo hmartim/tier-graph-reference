@@ -1,0 +1,11 @@
+{
+  "operation": "evaluateEvidenceAdmissibility",
+  "arguments": {
+    "evidenceId": "re-composite-definition-duty",
+    "profileId": "public-legal-fixture",
+    "times": [
+      "2024-06-01T00:00:00Z",
+      "2025-06-01T00:00:00Z"
+    ]
+  }
+}

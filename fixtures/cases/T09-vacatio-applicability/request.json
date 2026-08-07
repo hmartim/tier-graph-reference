@@ -1,0 +1,11 @@
+{
+  "operation": "getRelationStateAtTime",
+  "arguments": {
+    "relationId": "dr-new-duty",
+    "profileId": "public-legal-fixture",
+    "times": [
+      "2026-06-30T00:00:00Z",
+      "2026-07-01T00:00:00Z"
+    ]
+  }
+}

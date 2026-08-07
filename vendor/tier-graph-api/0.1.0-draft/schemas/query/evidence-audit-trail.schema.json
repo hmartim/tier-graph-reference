@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/evidence-audit-trail.schema.json",
+  "title": "EvidenceAuditTrail",
+  "description": "The evidence record together with its anchors, source-state resolutions, review events, and provenance activities — the full auditable history of one evidence occurrence.",
+  "type": "object",
+  "required": ["evidence"],
+  "properties": {
+    "evidence": { "$ref": "../core/relation-evidence.schema.json", "description": "The evidence record under audit." },
+    "sourceStateResolutions": {
+      "type": "array",
+      "description": "Source states resolved for each anchor's evidence unit (via the profile's owner function).",
+      "items": { "$ref": "../grounding/source-state-ref.schema.json" }
+    },
+    "provenanceActivities": {
+      "type": "array",
+      "description": "Provenance activities over this evidence occurrence. Multiple activities MUST NOT inflate independent evidence count.",
+      "items": { "$ref": "../core/provenance-activity.schema.json" }
+    },
+    "reviewEvents": {
+      "type": "array",
+      "description": "Review events affecting this evidence record.",
+      "items": { "$ref": "../core/review-event.schema.json" }
+    }
+  },
+  "additionalProperties": false
+}

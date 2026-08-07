@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/common/evidential-state.schema.json",
+  "title": "EvidentialState",
+  "description": "The computed state of a relation with respect to REGISTERED evidence under one profile and time. These are EVIDENCE STATES, not declarations of domain truth: `supported` (admissible supporting evidence, no admissible refuting evidence), `refuted` (admissible refuting evidence, no admissible supporting evidence), `contested` (both admissible supporting and refuting evidence), `unsupported` (no admissible evidence either way).",
+  "type": "string",
+  "enum": ["supported", "refuted", "contested", "unsupported"]
+}

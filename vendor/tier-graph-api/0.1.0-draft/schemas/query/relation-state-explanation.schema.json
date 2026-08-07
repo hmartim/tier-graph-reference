@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/relation-state-explanation.schema.json",
+  "title": "RelationStateExplanation",
+  "description": "A machine-readable explanation of WHY a relation is supported/refuted/contested/unsupported and admitted/excluded at a query time. The response is structured data; natural-language rendering is a client concern.",
+  "type": "object",
+  "required": ["relationId", "profileId", "queryTime", "state", "admitted"],
+  "properties": {
+    "relationId": { "$ref": "../common/identifier.schema.json", "description": "The relation being explained." },
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "Grounding profile." },
+    "queryTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Query time." },
+    "observerTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Optional observer time." },
+    "policyId": { "$ref": "../common/identifier.schema.json", "description": "Admission policy in force." },
+    "state": { "$ref": "../common/evidential-state.schema.json", "description": "The computed evidential state." },
+    "admitted": { "type": "boolean", "description": "Whether the relation is admitted into the projection under the policy." },
+    "admissibleSupporting": {
+      "type": "array",
+      "description": "Supporting evidence bases admissible at the query time, with their admissibility results.",
+      "items": { "$ref": "../grounding/admissibility-result.schema.json" }
+    },
+    "admissibleRefuting": {
+      "type": "array",
+      "description": "Refuting evidence bases admissible at the query time, with their admissibility results.",
+      "items": { "$ref": "../grounding/admissibility-result.schema.json" }
+    },
+    "exclusions": {
+      "type": "array",
+      "description": "Explanations for evidence bases or the relation being excluded.",
+      "items": { "$ref": "./exclusion-explanation.schema.json" }
+    }
+  },
+  "additionalProperties": false
+}

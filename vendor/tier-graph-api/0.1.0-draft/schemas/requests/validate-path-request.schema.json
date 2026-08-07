@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/validate-path-request.schema.json",
+  "title": "ValidatePathRequest",
+  "description": "Request body for validatePathAtTime. Evaluates a caller-supplied ordered relation path at a query time under a profile and policy, returning path- and step-level admissibility.",
+  "type": "object",
+  "required": ["relationIds", "profileId", "at", "policyId"],
+  "properties": {
+    "relationIds": {
+      "type": "array",
+      "description": "The ordered relation identifiers forming the path to validate.",
+      "minItems": 1,
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "Grounding profile." },
+    "at": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Query time." },
+    "observerTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Optional observer time (bitemporal)." },
+    "policyId": { "$ref": "../common/identifier.schema.json", "description": "Admission policy." }
+  },
+  "additionalProperties": false
+}

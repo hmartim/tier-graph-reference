@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/projection-metadata.schema.json",
+  "title": "ProjectionMetadata",
+  "description": "Metadata needed to audit a graph projection for ⟨profileId, at, policyId⟩. The `projectionHash` lets analytical artifacts prove compatibility before reuse (see spec/11).",
+  "type": "object",
+  "required": ["profileId", "queryTime", "policyId", "projectionHash"],
+  "properties": {
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "Grounding profile." },
+    "profileVersion": { "type": "string", "description": "Version of the profile used." },
+    "queryTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "The projection's query time." },
+    "observerTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Optional observer time." },
+    "policyId": { "$ref": "../common/identifier.schema.json", "description": "Admission policy." },
+    "policyVersion": { "type": "string", "description": "Version of the admission policy used." },
+    "sourceRevision": { "type": "string", "description": "The source substrate revision, when applicable." },
+    "projectionHash": { "type": "string", "description": "Stable hash of the admitted edge set for compatibility proofs.", "minLength": 1 },
+    "generatedAt": { "type": "string", "format": "date-time", "description": "When the projection was generated." },
+    "admittedRelationCount": { "type": "integer", "minimum": 0, "description": "Number of admitted relations." },
+    "excludedRelationCount": { "type": "integer", "minimum": 0, "description": "Number of excluded relations." }
+  },
+  "additionalProperties": false
+}

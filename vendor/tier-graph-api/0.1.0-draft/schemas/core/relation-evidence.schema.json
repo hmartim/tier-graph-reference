@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/core/relation-evidence.schema.json",
+  "title": "RelationEvidence",
+  "description": "A record that one NON-EMPTY set of evidence units JOINTLY supports or refutes one DerivedRelation. Conjunctive vs. alternative: several anchors within ONE record mean U1 AND U2 AND ... are jointly required; alternative / independently sufficient bases MUST be represented as SEPARATE RelationEvidence records (E1 OR E2). Evidence identity: EvidenceKey(e) = ⟨relationId, anchors, stance⟩, where each anchor already carries its optional selector, so selectors participate in identity through the anchor set. Re-executing a pipeline over the same relation, anchors, and stance MUST NOT create false independent evidence; it SHOULD append a new ProvenanceActivity instead. STANCE (`supports`/`refutes`) describes ONLY the relationship between the cited evidence basis and the normalized proposition; it MUST NOT substitute for proposition polarity, extractor disagreement, normative conflict, exceptions/scope, or review disagreement.",
+  "type": "object",
+  "required": ["id", "relationId", "anchors", "stance", "reviewStatus"],
+  "properties": {
+    "id": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque, unique identifier for this evidence record."
+    },
+    "relationId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Identifier of the DerivedRelation this evidence bears on. Exactly one relation per record."
+    },
+    "anchors": {
+      "type": "array",
+      "description": "The evidence units that JOINTLY form this basis (conjunctive). MUST contain at least one anchor.",
+      "minItems": 1,
+      "items": { "$ref": "./evidence-anchor.schema.json" }
+    },
+    "stance": {
+      "type": "string",
+      "description": "Whether this basis supports or refutes the proposition. Not a substitute for polarity or disagreement.",
+      "enum": ["supports", "refutes"]
+    },
+    "reviewStatus": {
+      "$ref": "../common/review-status.schema.json",
+      "description": "Curation lifecycle status of this evidence record."
+    },
+    "provenanceActivityIds": {
+      "type": "array",
+      "description": "Identifiers of ProvenanceActivity records that produced or reprocessed this evidence occurrence.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "reviewEventIds": {
+      "type": "array",
+      "description": "Identifiers of ReviewEvent records affecting this evidence record.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Flexible profile-specific properties.",
+      "additionalProperties": true
+    },
+    "createdAt": { "type": "string", "format": "date-time", "description": "Record creation time." },
+    "updatedAt": { "type": "string", "format": "date-time", "description": "Record update time." }
+  },
+  "additionalProperties": false
+}

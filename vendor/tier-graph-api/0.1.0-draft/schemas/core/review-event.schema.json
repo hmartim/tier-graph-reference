@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/core/review-event.schema.json",
+  "title": "ReviewEvent",
+  "description": "An auditable transition in the review status of a subject (a DerivedEntity, DerivedRelation, or RelationEvidence). Review events form the audit trail of the curation lifecycle and are distinct from provenance activities and from evidential state.",
+  "type": "object",
+  "required": ["id", "subjectType", "subjectId", "fromStatus", "toStatus", "occurredAt"],
+  "properties": {
+    "id": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque, unique identifier for this review event."
+    },
+    "subjectType": {
+      "type": "string",
+      "description": "The type of object whose review status changed.",
+      "enum": ["derivedEntity", "derivedRelation", "relationEvidence"]
+    },
+    "subjectId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Identifier of the subject object."
+    },
+    "fromStatus": {
+      "$ref": "../common/review-status.schema.json",
+      "description": "The review status before the transition."
+    },
+    "toStatus": {
+      "$ref": "../common/review-status.schema.json",
+      "description": "The review status after the transition."
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the transition occurred."
+    },
+    "reviewer": {
+      "$ref": "../common/agent-ref.schema.json",
+      "description": "The agent who performed the review."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Optional human-readable reason for the transition."
+    },
+    "supersededById": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "When toStatus is `superseded`, the identifier of the object that supersedes the subject."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Profile-specific properties.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

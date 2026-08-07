@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/common/identifier.schema.json",
+  "title": "Identifier",
+  "description": "An opaque, unique identifier for an object in the TIER-Graph. Identity is NEVER derived from a mutable label; implementations MUST use opaque identifiers (UUIDs, deterministic hashes, URNs, etc.). The value is treated as an opaque string by the core: no structure is required or interpreted. In this specification's examples, URN-like values are used purely to aid manual tracing.",
+  "type": "string",
+  "minLength": 1,
+  "examples": [
+    "e-9f2c7b1a",
+    "rel-0c4d",
+    "urn:tier:example:entity:congress"
+  ]
+}

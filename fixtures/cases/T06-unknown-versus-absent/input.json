@@ -1,0 +1,75 @@
+{
+  "caseId": "T06",
+  "title": "Unknown versus absent qualifier",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "compareRelationIdentity",
+  "entities": [
+    {
+      "id": "de-x",
+      "canonicalLabel": "X",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-y",
+      "canonicalLabel": "Y",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-condition-absent",
+      "sourceEntityId": "de-x",
+      "predicate": "REQUIRES",
+      "targetEntityId": "de-y",
+      "predicateFamily": "normativeDependency",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "proposed"
+    },
+    {
+      "id": "dr-condition-unknown",
+      "sourceEntityId": "de-x",
+      "predicate": "REQUIRES",
+      "targetEntityId": "de-y",
+      "predicateFamily": "normativeDependency",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "unknown"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "proposed"
+    }
+  ],
+  "evidence": []
+}

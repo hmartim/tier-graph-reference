@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/get-batch-request.schema.json",
+  "title": "GetBatchRequest",
+  "description": "Request body for a batch deterministic fetch. Fetches several objects by opaque id in one call, with the same per-object semantics as repeated single fetches. Missing ids are simply absent from the response (no error).",
+  "type": "object",
+  "required": ["ids"],
+  "properties": {
+    "ids": {
+      "type": "array",
+      "description": "The opaque identifiers to fetch.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "../common/identifier.schema.json" }
+    }
+  },
+  "additionalProperties": false
+}

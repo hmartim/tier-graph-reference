@@ -1,0 +1,23 @@
+{
+  "profile": {
+    "id": "public-legal-fixture",
+    "name": "Public legal conformance fixture",
+    "version": "0.1.0",
+    "intervalConvention": "[from,to)",
+    "authorityNote": "Minimal reviewed test data derived from public legal sources; not a production SAT-Graph database."
+  },
+  "evidenceUnits": [
+    {
+      "id": "tu-art226-p6-pre-ec66",
+      "ownerSourceStateId": "v-art226-p6-pre-ec66"
+    }
+  ],
+  "sourceStates": [
+    {
+      "id": "v-art226-p6-pre-ec66",
+      "admissibleFrom": "1988-10-05T00:00:00Z",
+      "admissibleTo": "2010-07-13T00:00:00Z",
+      "transitionRef": "action-ec66-2010"
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+# =============================================================================
+# TIER-Graph conformance manifest (NORMATIVE catalog)
+#
+# This file DEFINES conformance: the semantic catalog of cases T01–T10, the
+# competency questions and invariants each exercises, and a pointer to the
+# EXECUTABLE fixture in the implementation repository. It contains NO executable
+# payloads. Validates against ./manifest.schema.json (which references
+# ./case-definition.schema.json).
+#
+# The executable payloads (input.json, profile-fixture.json, request.json,
+# expected.json), the fixture runner, and any concrete grounding adapter live in
+# the separate `tier-graph-reference` repository. See ./reference-implementation.md.
+# =============================================================================
+
+version: "0.1.0-draft"
+
+conformanceClasses:
+  - id: core-model
+    name: "Core Model Conformance"
+  - id: temporal-grounding
+    name: "Temporal Grounding Conformance"
+  - id: query-api
+    name: "Query API Conformance"
+  - id: path
+    name: "Path Conformance"
+  - id: authoring
+    name: "Authoring Conformance"
+    optional: true
+  - id: analytical-extension
+    name: "Analytical Extension Conformance"
+    optional: true
+
+cases:
+  - id: T01
+    slug: persistent-relation
+    title: "Persistent relation across source states"
+    operation: getRelationStateAtTime
+    competencyQuestions: [CQ3, CQ5]
+    conformanceClasses: [temporal-grounding, query-api]
+    ontologicalProperty: "Persistence is a computed property of evidence admissibility, not a stored interval."
+    requiredInvariants:
+      - "A supporting evidence basis is admissible across successive source states."
+      - "The relation is supported at query times within each state's window."
+      - "No authoritative interval is copied to DerivedRelation."
+    expectedBehavior: >-
+      getRelationStateAtTime returns state=supported at a query time in each successive
+      source-state window, computed from evidence admissibility under the profile.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T01-persistent-relation
+    definition: cases/T01.md
+
+  - id: T02
+    slug: later-introduction
+    title: "Later introduction of a relation"
+    operation: getRelationStateAtTime
+    competencyQuestions: [CQ3, CQ6]
+    conformanceClasses: [temporal-grounding, query-api]
+    ontologicalProperty: "A relation's start is a computed boundary, not a stored start date."
+    requiredInvariants:
+      - "Before the supporting evidence's source state is admissible, the relation is unsupported."
+      - "At/after that boundary, the relation is supported."
+      - "The transition boundary is derived from admissibility."
+    expectedBehavior: >-
+      getRelationStateAtTime returns unsupported before the boundary and supported at/after it.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T02-later-introduction
+    definition: cases/T02.md
+
+  - id: T03
+    slug: one-unit-many-relations
+    title: "One evidence unit supporting several relations"
+    operation: getRelationsByEvidenceUnit
+    competencyQuestions: [CQ4]
+    conformanceClasses: [query-api]
+    ontologicalProperty: "Reverse evidence lookup is complete and does not conflate distinct relations."
+    requiredInvariants:
+      - "Every relation whose evidence anchors the unit is returned."
+      - "Distinct relations remain distinct in the result."
+    expectedBehavior: >-
+      getRelationsByEvidenceUnit returns exactly the set of relations linked to the given
+      external evidence unit.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T03-one-unit-many-relations
+    definition: cases/T03.md
+
+  - id: T04
+    slug: withdrawn-precondition
+    title: "Withdrawn historical precondition"
+    operation: getRelationStateAtTime
+    competencyQuestions: [CQ3, CQ6]
+    conformanceClasses: [temporal-grounding, query-api]
+    ontologicalProperty: "Historical evidence is retained; state changes when a precondition's admissibility ends."
+    requiredInvariants:
+      - "Historical evidence is retained (not deleted)."
+      - "The relation is supported before the boundary."
+      - "The relation is unsupported after the boundary."
+      - "No authoritative interval is copied to DerivedRelation."
+    expectedBehavior: >-
+      getRelationStateAtTime returns supported before the withdrawal boundary and unsupported
+      after it, while the historical evidence remains queryable.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T04-withdrawn-precondition
+    definition: cases/T04.md
+
+  - id: T05
+    slug: composite-cross-item-support
+    title: "Composite cross-item evidence"
+    operation: evaluateEvidenceAdmissibility
+    competencyQuestions: [CQ2, CQ3]
+    conformanceClasses: [core-model, temporal-grounding]
+    ontologicalProperty: "Anchors within one record are conjunctive; one inadmissible anchor sinks the basis."
+    requiredInvariants:
+      - "A single RelationEvidence record has conjunctive anchors to units owned by different source states."
+      - "The basis is admissible only when all anchors' owning source states are admissible."
+      - "Per-anchor detail is reported."
+    expectedBehavior: >-
+      evaluateEvidenceAdmissibility returns admissible only when every anchor resolves to an
+      admissible source state, with anchor-level detail.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T05-composite-cross-item-support
+    definition: cases/T05.md
+
+  - id: T06
+    slug: unknown-versus-absent
+    title: "Unknown vs. absent qualifier"
+    operation: compareRelationIdentity
+    competencyQuestions: [CQ1]
+    conformanceClasses: [core-model]
+    ontologicalProperty: "unknown is not absent; an unknown identity-relevant qualifier blocks merging."
+    requiredInvariants:
+      - "Candidates differing only by condition=absent vs condition=unknown are not equivalent."
+      - "The decision is 'unresolved', never 'equivalent'."
+      - "blockingDimensions names the offending dimension."
+    expectedBehavior: >-
+      compareRelationIdentity returns decision=unresolved with blockingDimensions=[condition].
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T06-unknown-versus-absent
+    definition: cases/T06.md
+
+  - id: T07
+    slug: positive-versus-negative
+    title: "Positive vs. negative polarity"
+    operation: compareRelationIdentity
+    competencyQuestions: [CQ1]
+    conformanceClasses: [core-model]
+    ontologicalProperty: "Polarity is part of relation identity and is distinct from evidence stance."
+    requiredInvariants:
+      - "An affirmative and a negative relation over the same endpoints/predicate are distinct."
+      - "They are not merged."
+      - "Polarity is not conflated with stance."
+    expectedBehavior: >-
+      compareRelationIdentity returns decision=distinct for candidates differing only in polarity.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T07-positive-versus-negative
+    definition: cases/T07.md
+
+  - id: T08
+    slug: reextraction-no-duplication
+    title: "Re-extraction without duplicate evidence"
+    operation: createEvidence
+    competencyQuestions: [CQ2]
+    conformanceClasses: [authoring, core-model]
+    ontologicalProperty: "Same EvidenceKey re-extraction appends provenance, not a new evidence record."
+    requiredInvariants:
+      - "Re-running with the same relation, anchors, selectors, and stance does not create a new RelationEvidence."
+      - "A new ProvenanceActivity is appended to the existing occurrence."
+      - "Independent-evidence count is not inflated."
+    expectedBehavior: >-
+      createEvidence with a duplicate EvidenceKey is detected; the occurrence gains a
+      provenance activity rather than a duplicate evidence record.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T08-reextraction-no-duplication
+    definition: cases/T08.md
+
+  - id: T09
+    slug: vacatio-applicability
+    title: "Prospective applicability (deferred effect)"
+    operation: evaluateSourceStateAdmissibility
+    competencyQuestions: [CQ3]
+    conformanceClasses: [temporal-grounding]
+    ontologicalProperty: "A published-but-not-yet-effective source state is inadmissible until its effect begins."
+    requiredInvariants:
+      - "A source state that exists but is not yet effective is inadmissible before its effective boundary."
+      - "It becomes admissible at/after the effective boundary."
+      - "Existence of the source earlier does not imply admissibility."
+    expectedBehavior: >-
+      evaluateSourceStateAdmissibility returns not-admissible before the effective boundary and
+      admissible at/after it.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T09-vacatio-applicability
+    definition: cases/T09.md
+
+  - id: T10
+    slug: anachronistic-path
+    title: "Anachronistic path exclusion"
+    operation: findAdmissiblePaths
+    competencyQuestions: [CQ7, CQ8]
+    conformanceClasses: [path]
+    ontologicalProperty: "Paths are generated over the time-indexed projection; anachronistic paths are excluded (no temporal-topology leakage)."
+    requiredInvariants:
+      - "Two relations that never co-exist at the query time do not form a path."
+      - "Candidate generation is constrained by the time-indexed projection."
+      - "No post-hoc-only temporal filtering of an all-time traversal."
+    expectedBehavior: >-
+      findAdmissiblePaths returns no path chaining relations that are not co-admissible at the
+      query time; explainPathExclusion names the inadmissible steps.
+    executableFixture:
+      repository: tier-graph-reference
+      path: fixtures/cases/T10-anachronistic-path
+    definition: cases/T10.md

@@ -1,0 +1,14 @@
+{
+  "operation": "findAdmissiblePaths",
+  "arguments": {
+    "sourceEntityId": "de-a",
+    "targetEntityId": "de-c",
+    "profileId": "public-legal-fixture",
+    "policyId": "strict-supported",
+    "times": [
+      "2025-01-01T00:00:00Z",
+      "2026-01-01T00:00:00Z"
+    ],
+    "maxDepth": 2
+  }
+}

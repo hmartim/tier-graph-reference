@@ -1,0 +1,49 @@
+{
+  "profile": {
+    "id": "public-legal-fixture",
+    "name": "Public legal conformance fixture",
+    "version": "0.1.0",
+    "intervalConvention": "[from,to)",
+    "authorityNote": "Minimal reviewed test data derived from public legal sources; not a production SAT-Graph database."
+  },
+  "evidenceUnits": [
+    {
+      "id": "tu-art6-1988",
+      "ownerSourceStateId": "v-art6-1988"
+    },
+    {
+      "id": "tu-art6-2000",
+      "ownerSourceStateId": "v-art6-2000"
+    },
+    {
+      "id": "tu-art6-2010",
+      "ownerSourceStateId": "v-art6-2010"
+    },
+    {
+      "id": "tu-art6-2015",
+      "ownerSourceStateId": "v-art6-2015"
+    }
+  ],
+  "sourceStates": [
+    {
+      "id": "v-art6-1988",
+      "admissibleFrom": "1988-10-05T00:00:00Z",
+      "admissibleTo": "2000-02-14T00:00:00Z"
+    },
+    {
+      "id": "v-art6-2000",
+      "admissibleFrom": "2000-02-14T00:00:00Z",
+      "admissibleTo": "2010-02-04T00:00:00Z"
+    },
+    {
+      "id": "v-art6-2010",
+      "admissibleFrom": "2010-02-04T00:00:00Z",
+      "admissibleTo": "2015-09-15T00:00:00Z"
+    },
+    {
+      "id": "v-art6-2015",
+      "admissibleFrom": "2015-09-15T00:00:00Z",
+      "admissibleTo": null
+    }
+  ]
+}

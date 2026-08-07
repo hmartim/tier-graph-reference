@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/common/agent-ref.schema.json",
+  "title": "AgentRef",
+  "description": "A reference to an agent responsible for or involved in an activity or review — a person, organization, software component, or model. `kind` distinguishes the agent category; `id` is an opaque reference and `label` is for display. Software and model agents MAY carry `version`.",
+  "type": "object",
+  "required": ["kind"],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "The category of agent.",
+      "enum": ["person", "organization", "software", "model"]
+    },
+    "id": {
+      "type": "string",
+      "description": "Opaque identifier for the agent.",
+      "minLength": 1
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable name for display.",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "description": "Version string, for software or model agents.",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

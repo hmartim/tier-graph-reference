@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/exclusion-explanation.schema.json",
+  "title": "ExclusionExplanation",
+  "description": "Explains why a relation, evidence basis, path, community revision, or causal gate was excluded from a time-indexed projection. Provides the machine-readable audit answer to 'why is this not here at time t?', naming the inadmissible evidence units and/or source states responsible.",
+  "type": "object",
+  "required": ["subjectType", "subjectId", "profileId", "queryTime", "reasonCode", "reason"],
+  "properties": {
+    "subjectType": {
+      "type": "string",
+      "description": "The kind of subject that was excluded.",
+      "enum": ["relation", "evidence", "path", "communityRevision", "causalGate"]
+    },
+    "subjectId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Identifier of the excluded subject."
+    },
+    "profileId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The grounding profile under which exclusion was determined."
+    },
+    "queryTime": {
+      "$ref": "../common/temporal-coordinate.schema.json",
+      "description": "The query time the exclusion applies to."
+    },
+    "reasonCode": {
+      "type": "string",
+      "description": "Stable, machine-readable reason code.",
+      "minLength": 1
+    },
+    "reason": {
+      "type": "string",
+      "description": "Human-readable explanation.",
+      "minLength": 1
+    },
+    "inadmissibleEvidenceUnitIds": {
+      "type": "array",
+      "description": "Evidence units that were inadmissible at the query time and caused the exclusion.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "inadmissibleSourceStateIds": {
+      "type": "array",
+      "description": "Source states that were inadmissible at the query time.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "affectedRelationIds": {
+      "type": "array",
+      "description": "Relations affected by the exclusion (e.g. path steps).",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "policyId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The admission policy in force."
+    },
+    "details": {
+      "type": "object",
+      "description": "Optional structured details.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

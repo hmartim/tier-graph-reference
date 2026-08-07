@@ -1,0 +1,9 @@
+{
+  "operation": "getRelationHistory",
+  "arguments": {
+    "relationId": "dr-education-social-right",
+    "profileId": "public-legal-fixture",
+    "startAt": "1988-10-05T00:00:00Z",
+    "endAt": "2026-01-01T00:00:00Z"
+  }
+}

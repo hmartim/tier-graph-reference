@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/resolve-entity-candidates-request.schema.json",
+  "title": "ResolveEntityCandidatesRequest",
+  "description": "Request body for resolveEntityCandidates (optional). This operation MAY be probabilistic; it MUST NOT silently select a canonical entity when identity confidence is below the implementation's declared threshold.",
+  "type": "object",
+  "required": ["query"],
+  "properties": {
+    "query": { "type": "string", "description": "A natural-language mention or external identifier to resolve.", "minLength": 1 },
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "Optional grounding profile scope." },
+    "entityType": { "type": "string", "description": "Optional entity-type filter." },
+    "limit": { "type": "integer", "minimum": 1, "description": "Maximum number of candidates to return." }
+  },
+  "additionalProperties": false
+}

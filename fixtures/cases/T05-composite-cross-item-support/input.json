@@ -1,0 +1,74 @@
+{
+  "caseId": "T05",
+  "title": "Composite cross-item support",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "evaluateEvidenceAdmissibility",
+  "entities": [
+    {
+      "id": "de-eligible-beneficiary",
+      "canonicalLabel": "eligible beneficiary",
+      "entityType": "legalCategory",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-reporting-obligation",
+      "canonicalLabel": "reporting obligation",
+      "entityType": "duty",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-beneficiary-reporting",
+      "sourceEntityId": "de-eligible-beneficiary",
+      "predicate": "TRIGGERS_REPORTING_DUTY",
+      "targetEntityId": "de-reporting-obligation",
+      "predicateFamily": "normativeDependency",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "specified",
+          "value": "qualifies under the external definition"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "specified",
+          "value": "mandatory"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "re-composite-definition-duty",
+      "relationId": "dr-beneficiary-reporting",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-definition"
+          },
+          "role": "definition"
+        },
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-duty"
+          },
+          "role": "duty"
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    }
+  ]
+}

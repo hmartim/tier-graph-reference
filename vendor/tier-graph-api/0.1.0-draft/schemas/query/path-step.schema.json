@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/path-step.schema.json",
+  "title": "PathStep",
+  "description": "One relation traversal within a GroundedPath and its grounding state. Each step carries the evidential state of the traversed relation under the path's profile and time, and whether the step was `admitted` under the admission policy.",
+  "type": "object",
+  "required": ["ordinal", "relationId", "fromEntityId", "toEntityId", "evidentialState", "admitted"],
+  "properties": {
+    "ordinal": {
+      "type": "integer",
+      "description": "Zero-based position of this step in the path.",
+      "minimum": 0
+    },
+    "relationId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The relation traversed at this step."
+    },
+    "fromEntityId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The entity the step traverses from."
+    },
+    "toEntityId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The entity the step traverses to."
+    },
+    "evidentialState": {
+      "$ref": "./evidential-state-snapshot.schema.json",
+      "description": "The evidential state of the traversed relation at the path's time/profile."
+    },
+    "admitted": {
+      "type": "boolean",
+      "description": "Whether this step is admitted under the admission policy."
+    },
+    "direction": {
+      "type": "string",
+      "description": "Direction of traversal relative to the relation's source/target.",
+      "enum": ["outgoing", "incoming"]
+    },
+    "exclusionReason": {
+      "type": "string",
+      "description": "Human-readable reason when this step is not admitted."
+    }
+  },
+  "additionalProperties": false
+}

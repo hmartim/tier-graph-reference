@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/common/review-status.schema.json",
+  "title": "ReviewStatus",
+  "description": "The lifecycle status of a derived object (entity, relation, or evidence record). This is orthogonal to evidence STANCE and to evidential STATE: it records the curation lifecycle, not whether the proposition is supported at a time. `superseded` marks an object replaced by another (referenced via a ReviewEvent).",
+  "type": "string",
+  "enum": ["proposed", "accepted", "rejected", "superseded"]
+}

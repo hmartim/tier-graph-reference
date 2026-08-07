@@ -1,0 +1,68 @@
+{
+  "operation": "createEvidence",
+  "arguments": {
+    "profileId": "public-legal-fixture",
+    "submissions": [
+      {
+        "evidence": {
+          "id": "re-a-depends-b",
+          "relationId": "dr-a-depends-b",
+          "anchors": [
+            {
+              "evidenceUnit": {
+                "profileId": "public-legal-fixture",
+                "evidenceUnitId": "eu-a-b"
+              },
+              "selector": {
+                "type": "textPosition",
+                "start": 10,
+                "end": 42
+              }
+            }
+          ],
+          "stance": "supports",
+          "reviewStatus": "accepted"
+        },
+        "provenanceActivity": {
+          "id": "pa-extract-v1",
+          "activityType": "extraction",
+          "startedAt": "2026-01-01T10:00:00Z",
+          "model": {
+            "name": "extractor",
+            "version": "1.0"
+          }
+        }
+      },
+      {
+        "evidence": {
+          "id": "re-DIFFERENT-ID-SAME-BASIS",
+          "relationId": "dr-a-depends-b",
+          "anchors": [
+            {
+              "evidenceUnit": {
+                "profileId": "public-legal-fixture",
+                "evidenceUnitId": "eu-a-b"
+              },
+              "selector": {
+                "type": "textPosition",
+                "start": 10,
+                "end": 42
+              }
+            }
+          ],
+          "stance": "supports",
+          "reviewStatus": "accepted"
+        },
+        "provenanceActivity": {
+          "id": "pa-extract-v2",
+          "activityType": "extraction",
+          "startedAt": "2026-02-01T10:00:00Z",
+          "model": {
+            "name": "extractor",
+            "version": "2.0"
+          }
+        }
+      }
+    ]
+  }
+}

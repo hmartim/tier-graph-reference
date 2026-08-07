@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/common/external-identifier.schema.json",
+  "title": "ExternalIdentifier",
+  "description": "A reference to an identifier controlled by a system outside the TIER-Graph core (a source substrate, an authority file, a domain vocabulary). It records WHICH system (`scheme`) and the opaque `value` within it. External identifiers do not confer TIER-Graph identity; they are cross-references only.",
+  "type": "object",
+  "required": ["scheme", "value"],
+  "properties": {
+    "scheme": {
+      "type": "string",
+      "description": "The identifier scheme or controlling system (e.g. 'urn:lex', 'wikidata', 'profile:<your-profile>').",
+      "minLength": 1
+    },
+    "value": {
+      "type": "string",
+      "description": "The opaque identifier value within the scheme.",
+      "minLength": 1
+    },
+    "label": {
+      "type": "string",
+      "description": "Optional human-readable label for display only.",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,31 @@
+{
+  "profile": {
+    "id": "public-legal-fixture",
+    "name": "Public legal conformance fixture",
+    "version": "0.1.0",
+    "intervalConvention": "[from,to)",
+    "authorityNote": "Minimal reviewed test data derived from public legal sources; not a production SAT-Graph database."
+  },
+  "evidenceUnits": [
+    {
+      "id": "tu-definition",
+      "ownerSourceStateId": "v-definition"
+    },
+    {
+      "id": "tu-duty",
+      "ownerSourceStateId": "v-duty"
+    }
+  ],
+  "sourceStates": [
+    {
+      "id": "v-definition",
+      "admissibleFrom": "2024-01-01T00:00:00Z",
+      "admissibleTo": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": "v-duty",
+      "admissibleFrom": "2024-01-01T00:00:00Z",
+      "admissibleTo": null
+    }
+  ]
+}

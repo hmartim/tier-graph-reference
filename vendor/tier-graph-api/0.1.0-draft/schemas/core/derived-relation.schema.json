@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/core/derived-relation.schema.json",
+  "title": "DerivedRelation",
+  "description": "A normalized, qualified, defeasible proposition connecting two DerivedEntity objects: r = ⟨source, predicate, target, polarity, qualifiers⟩. In the transfer representation, polarity is carried as a mandatory `polarity` qualifier, but it is a distinguished component of the identity key, not one truth-conditional dimension among others. A DerivedRelation is NOT domain truth; it is a proposition whose evidential state is computed from RelationEvidence under a grounding profile and time. IDENTITY: the minimum identity key is Key(r) = ⟨sourceEntityId, predicate, targetEntityId, polarity, truth-conditional qualifiers⟩. Automatic merging is permitted only when source, predicate, target, and polarity are equivalent, all identity-relevant qualifiers are equivalent, and no identity-relevant qualifier is `unknown`. A DerivedRelation MUST NOT carry a copied authoritative source-state interval; temporal state is derived, not stored.",
+  "type": "object",
+  "required": ["id", "sourceEntityId", "predicate", "targetEntityId", "qualifiers", "reviewStatus"],
+  "properties": {
+    "id": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque, unique identifier for this relation."
+    },
+    "sourceEntityId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Identifier of the source DerivedEntity."
+    },
+    "predicate": {
+      "type": "string",
+      "description": "The predicate connecting source to target. The specific vocabulary is profile-defined; see `predicateFamily` for the coarse classification.",
+      "minLength": 1
+    },
+    "targetEntityId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Identifier of the target DerivedEntity."
+    },
+    "qualifiers": {
+      "type": "object",
+      "description": "A map from qualifier dimension name to its RelationQualifier. Each property key SHOULD equal the value's `dimension`. Every well-formed relation MUST include a `polarity` qualifier. Any identity-relevant qualifier with status `unknown` blocks automatic merging.",
+      "additionalProperties": { "$ref": "./relation-qualifier.schema.json" }
+    },
+    "reviewStatus": {
+      "$ref": "../common/review-status.schema.json",
+      "description": "Curation lifecycle status of this relation. Distinct from evidential state: `accepted` is not `supported`."
+    },
+    "predicateFamily": {
+      "type": "string",
+      "description": "Coarse classification of the predicate. The base specification recognizes: classificatory, definitional, normativeDependency (deontic dependency), institutional, procedural, factualCausal, attributional, normativeConsequential.",
+      "enum": [
+        "classificatory",
+        "definitional",
+        "normativeDependency",
+        "institutional",
+        "procedural",
+        "factualCausal",
+        "attributional",
+        "normativeConsequential"
+      ]
+    },
+    "canonicalLabel": {
+      "type": "string",
+      "description": "Optional human-readable rendering of the proposition. Display only.",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional prose description of the proposition."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Flexible profile-specific properties.",
+      "additionalProperties": true
+    },
+    "createdAt": { "type": "string", "format": "date-time", "description": "Record creation time." },
+    "updatedAt": { "type": "string", "format": "date-time", "description": "Record update time." }
+  },
+  "additionalProperties": false
+}

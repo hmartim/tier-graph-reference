@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/relation-audit-trail.schema.json",
+  "title": "RelationAuditTrail",
+  "description": "A consolidated audit view of one relation: identity and qualifiers, review status, evidence records with anchors, source-state resolutions, admissibility results, provenance activities, and review events. When queried with a profile and time, it MAY include the evidential state snapshot at that time.",
+  "type": "object",
+  "required": ["relation", "evidence"],
+  "properties": {
+    "relation": { "$ref": "../core/derived-relation.schema.json", "description": "The relation under audit." },
+    "evidence": {
+      "type": "array",
+      "description": "All evidence records bearing on the relation.",
+      "items": { "$ref": "../core/relation-evidence.schema.json" }
+    },
+    "sourceStateResolutions": {
+      "type": "array",
+      "description": "Source states resolved for the relation's evidence anchors (via the profile's owner function).",
+      "items": { "$ref": "../grounding/source-state-ref.schema.json" }
+    },
+    "admissibilityResults": {
+      "type": "array",
+      "description": "Admissibility results relevant to the audited time (when a profile/time was supplied).",
+      "items": { "$ref": "../grounding/admissibility-result.schema.json" }
+    },
+    "provenanceActivities": {
+      "type": "array",
+      "description": "Provenance activities across the relation and its evidence.",
+      "items": { "$ref": "../core/provenance-activity.schema.json" }
+    },
+    "reviewEvents": {
+      "type": "array",
+      "description": "Review events across the relation and its evidence.",
+      "items": { "$ref": "../core/review-event.schema.json" }
+    },
+    "evidentialState": {
+      "$ref": "./evidential-state-snapshot.schema.json",
+      "description": "Optional computed evidential state at the audited time."
+    }
+  },
+  "additionalProperties": false
+}

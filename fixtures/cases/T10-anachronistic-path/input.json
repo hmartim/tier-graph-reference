@@ -1,0 +1,120 @@
+{
+  "caseId": "T10",
+  "title": "Anachronistic path exclusion",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "findAdmissiblePaths",
+  "entities": [
+    {
+      "id": "de-a",
+      "canonicalLabel": "A",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-b",
+      "canonicalLabel": "B",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-c",
+      "canonicalLabel": "C",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-a-b",
+      "sourceEntityId": "de-a",
+      "predicate": "DEPENDS_ON",
+      "targetEntityId": "de-b",
+      "predicateFamily": "procedural",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "dr-b-c",
+      "sourceEntityId": "de-b",
+      "predicate": "TRIGGERS",
+      "targetEntityId": "de-c",
+      "predicateFamily": "normativeConsequential",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "re-a-b",
+      "relationId": "dr-a-b",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "eu-a-b"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-b-c-future",
+      "relationId": "dr-b-c",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "eu-b-c-future"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "admissionPolicies": [
+    {
+      "id": "strict-supported",
+      "name": "Strict supported",
+      "admittedStates": [
+        "supported"
+      ],
+      "minimumReviewStatus": "accepted"
+    }
+  ]
+}

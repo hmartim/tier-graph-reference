@@ -1,0 +1,66 @@
+{
+  "caseId": "T09",
+  "title": "Prospective applicability after vacatio",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "getRelationStateAtTime",
+  "entities": [
+    {
+      "id": "de-regulated-actor",
+      "canonicalLabel": "regulated actor",
+      "entityType": "legalCategory",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-new-duty",
+      "canonicalLabel": "new reporting duty",
+      "entityType": "duty",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-new-duty",
+      "sourceEntityId": "de-regulated-actor",
+      "predicate": "REQUIRES",
+      "targetEntityId": "de-new-duty",
+      "predicateFamily": "normativeDependency",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "specified",
+          "value": "covered actors"
+        },
+        "modality": {
+          "status": "specified",
+          "value": "mandatory"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "re-new-duty",
+      "relationId": "dr-new-duty",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-new-duty"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    }
+  ]
+}

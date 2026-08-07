@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/projected-relation.schema.json",
+  "title": "ProjectedRelation",
+  "description": "A relation admitted (or not) into a graph projection for a specific time, profile, and admission policy. The projection is the time-indexed edge set over which path traversal operates. `admitted` reflects the admission policy applied to the relation's evidential state; when false, `exclusionReason` explains why.",
+  "type": "object",
+  "required": ["relation", "evidentialState", "admitted"],
+  "properties": {
+    "relation": {
+      "$ref": "../core/derived-relation.schema.json",
+      "description": "The derived relation."
+    },
+    "evidentialState": {
+      "$ref": "./evidential-state-snapshot.schema.json",
+      "description": "The computed evidential state at the projection's time/profile."
+    },
+    "admitted": {
+      "type": "boolean",
+      "description": "Whether the relation is admitted into the projection under the admission policy."
+    },
+    "exclusionReason": {
+      "type": "string",
+      "description": "Human-readable reason when the relation is not admitted."
+    }
+  },
+  "additionalProperties": false
+}

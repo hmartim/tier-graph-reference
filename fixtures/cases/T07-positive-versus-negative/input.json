@@ -1,0 +1,104 @@
+{
+  "caseId": "T07",
+  "title": "Positive and negative propositions remain distinct",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "getRelationStateAtTime",
+  "entities": [
+    {
+      "id": "de-x",
+      "canonicalLabel": "X",
+      "entityType": "event",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-y",
+      "canonicalLabel": "Y",
+      "entityType": "outcome",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-x-causes-y-positive",
+      "sourceEntityId": "de-x",
+      "predicate": "CAUSES",
+      "targetEntityId": "de-y",
+      "predicateFamily": "factualCausal",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "dr-x-causes-y-negative",
+      "sourceEntityId": "de-x",
+      "predicate": "CAUSES",
+      "targetEntityId": "de-y",
+      "predicateFamily": "factualCausal",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "negative"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "re-positive-support",
+      "relationId": "dr-x-causes-y-positive",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "eu-positive"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "re-negative-support",
+      "relationId": "dr-x-causes-y-negative",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "eu-negative"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    }
+  ]
+}

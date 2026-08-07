@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/common/temporal-coordinate.schema.json",
+  "title": "TemporalCoordinate",
+  "description": "A point on a temporal axis, used as a query time (`at`) or observer time. The core specification models temporal coordinates as RFC 3339 date-time or full-date strings. The MEANING of a coordinate (event time, applicability time, observation time, ...) is defined by the TemporalGroundingProfile, not by the core. Two axes are distinguished conceptually: the query time `at` (the time the caller is asking about) and the optional `observerTime` (the time from whose vantage point admissibility is judged, enabling bitemporal queries).",
+  "type": "string",
+  "anyOf": [
+    { "format": "date-time" },
+    { "format": "date" }
+  ],
+  "examples": ["1988-10-05", "2000-02-14T00:00:00Z"]
+}

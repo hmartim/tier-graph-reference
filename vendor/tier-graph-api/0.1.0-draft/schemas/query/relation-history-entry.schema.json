@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/relation-history-entry.schema.json",
+  "title": "RelationHistoryEntry",
+  "description": "A time boundary or period at which a relation's computed evidential state differs. The history is COMPUTED from evidence and source-state admissibility; the API MUST NOT require a copied relation-level temporal interval. `boundaryCauseRefs` MAY reference the authoritative transition (in the substrate) that caused the boundary, when the profile exposes such transitions.",
+  "type": "object",
+  "required": ["relationId", "profileId", "state"],
+  "properties": {
+    "relationId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The relation whose history entry this is."
+    },
+    "profileId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The grounding profile under which the history was computed."
+    },
+    "state": {
+      "$ref": "../common/evidential-state.schema.json",
+      "description": "The evidential state that holds over this period."
+    },
+    "from": {
+      "$ref": "../common/temporal-coordinate.schema.json",
+      "description": "Inclusive start of the period. Absent means unbounded in the past."
+    },
+    "to": {
+      "$ref": "../common/temporal-coordinate.schema.json",
+      "description": "Exclusive end of the period. Absent means the period is currently open."
+    },
+    "supportingEvidenceIds": {
+      "type": "array",
+      "description": "Supporting evidence bases admissible over this period.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "refutingEvidenceIds": {
+      "type": "array",
+      "description": "Refuting evidence bases admissible over this period.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "boundaryCauseRefs": {
+      "type": "array",
+      "description": "Optional external references explaining what caused this boundary (e.g. an authoritative transition identifier in the profile's substrate).",
+      "items": { "$ref": "../common/external-identifier.schema.json" }
+    }
+  },
+  "additionalProperties": false
+}

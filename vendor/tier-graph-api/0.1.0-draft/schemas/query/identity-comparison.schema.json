@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/identity-comparison.schema.json",
+  "title": "IdentityComparison",
+  "description": "The result of compareRelationIdentity. RULE: if any identity-relevant qualifier is `unknown`, the decision MUST NOT be `equivalent` — it is `unresolved`, and `blockingDimensions` names the offending dimensions (see spec/03).",
+  "type": "object",
+  "required": ["decision"],
+  "properties": {
+    "decision": {
+      "type": "string",
+      "description": "equivalent (merge-compatible), distinct (differ on an identity dimension), or unresolved (blocked by an unknown identity-relevant qualifier).",
+      "enum": ["equivalent", "distinct", "unresolved"]
+    },
+    "blockingDimensions": {
+      "type": "array",
+      "description": "Identity-relevant qualifier dimensions that block an `equivalent` decision (unknown or differing).",
+      "items": { "type": "string" }
+    },
+    "explanation": { "type": "string", "description": "Human-readable rationale for the decision." }
+  },
+  "additionalProperties": false
+}

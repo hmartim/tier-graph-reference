@@ -1,0 +1,36 @@
+{
+  "states": [
+    {
+      "relationId": "dr-x-causes-y-positive",
+      "profileId": "public-legal-fixture",
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-positive-support"
+      ],
+      "refutingEvidenceIds": []
+    },
+    {
+      "relationId": "dr-x-causes-y-negative",
+      "profileId": "public-legal-fixture",
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-negative-support"
+      ],
+      "refutingEvidenceIds": []
+    }
+  ],
+  "invariants": {
+    "distinctRelationCount": 2,
+    "pairwiseIdentity": [
+      {
+        "relationIdA": "dr-x-causes-y-negative",
+        "relationIdB": "dr-x-causes-y-positive",
+        "decision": "distinct",
+        "mergeAllowed": false,
+        "differingDimensions": [
+          "polarity"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+# ---------------------------------------------------------------------------
+# Privacy boundary: never commit any source substrate or private artifacts.
+# These patterns are also enforced in CI (scripts/reject_private_artifacts.py).
+# ---------------------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+.env
+.env.*
+credentials*
+secrets/
+data/private/
+data/local/
+
+# The sample TIER-only database is rebuilt on demand, never committed.
+build/
+sample-tier.db
+
+# Fixture archive is unpacked into fixtures/; the archive itself is not tracked.
+tier_graph_reference_fixtures.zip
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# ---------------------------------------------------------------------------
+# Conformance output.
+#
+# The two published artifacts ARE tracked: the release cites them as the executed
+# evidence, and a citation pointing at an ignored file is not a citation. They
+# cannot go stale silently -- scripts/check_results_current.py re-runs the suite
+# and fails the build if the committed outputs no longer match. Any *other*
+# output written here (ad-hoc runs, alternative profiles) stays ignored.
+# ---------------------------------------------------------------------------
+results/*.json
+results/*.md
+!results/README.md
+!results/conformance-results.json
+!results/conformance-summary.md
+
+# ---------------------------------------------------------------------------
+# Local contributor guidance, not part of the implementation
+# ---------------------------------------------------------------------------
+CLAUDE.md
+.claude/
+
+# ---------------------------------------------------------------------------
+# Manuscript artifacts (this repo is an IMPLEMENTATION, not a paper)
+# ---------------------------------------------------------------------------
+*.tex
+*.bib
+*.bst
+*.cls
+paper.pdf
+*.aux
+*.bbl
+*.blg
+*.synctex.gz
+
+# ---------------------------------------------------------------------------
+# Editor / OS
+# ---------------------------------------------------------------------------
+.idea/
+.vscode/
+*.code-workspace
+*.swp
+.DS_Store
+Thumbs.db

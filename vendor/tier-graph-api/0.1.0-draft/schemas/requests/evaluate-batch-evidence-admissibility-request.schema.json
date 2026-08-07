@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/evaluate-batch-evidence-admissibility-request.schema.json",
+  "title": "EvaluateBatchEvidenceAdmissibilityRequest",
+  "description": "Request body for evaluateBatchEvidenceAdmissibility. A convenience primitive that MUST preserve the same semantics as repeated single evaluateEvidenceAdmissibility calls.",
+  "type": "object",
+  "required": ["evidenceIds", "profileId", "at"],
+  "properties": {
+    "evidenceIds": {
+      "type": "array",
+      "description": "The evidence records to evaluate.",
+      "minItems": 1,
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "Grounding profile." },
+    "at": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Query time." },
+    "observerTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Optional observer time (bitemporal)." }
+  },
+  "additionalProperties": false
+}

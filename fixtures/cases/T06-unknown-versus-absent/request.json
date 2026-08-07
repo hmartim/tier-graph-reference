@@ -1,0 +1,7 @@
+{
+  "operation": "compareRelationIdentity",
+  "arguments": {
+    "relationIdA": "dr-condition-absent",
+    "relationIdB": "dr-condition-unknown"
+  }
+}

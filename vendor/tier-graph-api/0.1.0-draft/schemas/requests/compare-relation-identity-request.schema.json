@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/compare-relation-identity-request.schema.json",
+  "title": "CompareRelationIdentityRequest",
+  "description": "Request body for compareRelationIdentity. Evaluates whether two relation candidates are merge-compatible under the declared identity profile. If any identity-relevant qualifier is `unknown`, the decision MUST NOT be `equivalent` (see spec/03).",
+  "type": "object",
+  "required": ["candidateA", "candidateB"],
+  "properties": {
+    "candidateA": { "$ref": "../core/derived-relation.schema.json", "description": "First relation candidate." },
+    "candidateB": { "$ref": "../core/derived-relation.schema.json", "description": "Second relation candidate." }
+  },
+  "additionalProperties": false
+}

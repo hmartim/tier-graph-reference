@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/grounding/evidence-unit-ref.schema.json",
+  "title": "EvidenceUnitRef",
+  "description": "A reference to an externally controlled unit of evidence. It is a REFERENCE, not a copy: the TIER-Graph layer MUST NOT require the full evidence content to be stored locally. The pair (`profileId`, `evidenceUnitId`) identifies the unit within a declared TemporalGroundingProfile, which is authoritative for resolving the unit to the source state that owns it. `evidenceUnitId` is an opaque identifier meaningful within the profile's substrate (e.g. a document-fragment id).",
+  "type": "object",
+  "required": ["profileId", "evidenceUnitId"],
+  "properties": {
+    "profileId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Identifier of the TemporalGroundingProfile that controls this evidence unit."
+    },
+    "evidenceUnitId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque identifier of the evidence unit within the profile's substrate."
+    },
+    "selector": {
+      "$ref": "./evidence-selector.schema.json",
+      "description": "Optional selector refining the location within the evidence unit. A selector does NOT create a new source state."
+    },
+    "locator": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional dereferenceable URI for human access/provenance. Not used for logical inference."
+    },
+    "displayCitation": {
+      "type": "string",
+      "description": "Optional human-readable citation string for display."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/grounding/admission-policy.schema.json",
+  "title": "AdmissionPolicy",
+  "description": "Defines which computed evidential states are admitted into a query-time graph projection. An admission policy is applied AFTER evidential state is computed; it does not change the state, only whether a relation in that state is admitted for traversal/return. Recommended standard policies: `strict-supported` (admit only supported), `recall-with-contested` (admit supported and contested, preserving state in results), `audit-all-registered` (return all for audit, but do not traverse unsupported/inadmissible relations unless explicitly requested).",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "admittedStates"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque, unique identifier for this policy."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable policy name.",
+      "minLength": 1
+    },
+    "admittedStates": {
+      "type": "array",
+      "description": "The evidential states admitted into the projection. For traversal projections this SHOULD be a subset of {supported, refuted, contested}; admitting `unsupported` is reserved for audit-style policies, which MUST NOT drive traversal or ranking.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "supported",
+          "refuted",
+          "contested",
+          "unsupported"
+        ]
+      }
+    },
+    "minimumReviewStatus": {
+      "description": "Pi_review: the minimum review status an evidence record must have to ground admission. The permitted values are ONLY `proposed` and `accepted`. `rejected` and `superseded` are absent by construction: they are not higher levels of review but terminal outcomes, and a policy naming one would be meaningless -- under NO policy do such records ground a relation, though they remain stored and auditable. Pi_review is therefore always a subset of {proposed, accepted}. `accepted` yields a reviewed-evidence policy; `proposed` admits unreviewed extraction as well; omitting the property takes the permissive reading. Whether unreviewed extraction may ground an answer is a deliberate deployment decision and SHOULD be declared explicitly.",
+      "type": "string",
+      "enum": [
+        "proposed",
+        "accepted"
+      ]
+    },
+    "includeContested": {
+      "type": "boolean",
+      "description": "Convenience flag; when true, contested relations are admitted (and their state preserved in results)."
+    },
+    "includeRefuted": {
+      "type": "boolean",
+      "description": "Convenience flag; when true, refuted relations are admitted (typically for audit)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Explicit policy version.",
+      "minLength": 1
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Policy-specific properties.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

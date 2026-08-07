@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/common/page.schema.json",
+  "title": "Page",
+  "description": "A generic, cursor-based pagination envelope for list responses. Implementations SHOULD use opaque cursors rather than numeric offsets so that pagination is stable under concurrent writes. The `items` array holds the page's elements; the concrete element type is fixed by whichever operation returns the page.",
+  "type": "object",
+  "required": ["items"],
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "The elements on this page. The element type is defined by the returning operation.",
+      "items": true
+    },
+    "nextCursor": {
+      "type": ["string", "null"],
+      "description": "Opaque cursor for the next page. `null` or absent means there are no further pages.",
+      "minLength": 1
+    },
+    "totalCount": {
+      "type": ["integer", "null"],
+      "description": "Optional total number of matching elements across all pages, when the implementation can compute it cheaply.",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

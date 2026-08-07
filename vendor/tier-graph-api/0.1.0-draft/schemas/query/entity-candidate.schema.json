@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/entity-candidate.schema.json",
+  "title": "EntityCandidate",
+  "description": "A ranked candidate returned by resolveEntityCandidates for a natural-language mention or external identifier. Resolution MAY be probabilistic; `confidence` and `matchType` expose that. A caller MUST NOT treat a candidate as canonical below the implementation's declared confidence threshold.",
+  "type": "object",
+  "required": ["entityId", "confidence"],
+  "properties": {
+    "entityId": { "$ref": "../common/identifier.schema.json", "description": "The candidate entity." },
+    "canonicalLabel": { "type": "string", "description": "The candidate's canonical label (display only)." },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1, "description": "Match confidence." },
+    "matchType": {
+      "type": "string",
+      "description": "How the candidate matched.",
+      "enum": ["exactExternalIdentifier", "exactLabel", "alias", "fuzzyLabel", "semantic"]
+    },
+    "explanation": { "type": "string", "description": "Optional human-readable rationale." }
+  },
+  "additionalProperties": false
+}

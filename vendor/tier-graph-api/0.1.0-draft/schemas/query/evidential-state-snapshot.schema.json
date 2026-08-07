@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/evidential-state-snapshot.schema.json",
+  "title": "EvidentialStateSnapshot",
+  "description": "The computed evidential state of ONE relation at a query time under a profile. It describes REGISTERED evidence under one profile and time; it is NOT a declaration of domain truth. The state is derived from which supporting/refuting evidence bases are admissible at `queryTime` (and optional `observerTime`), never from a copied relation-level interval.",
+  "type": "object",
+  "required": ["relationId", "profileId", "queryTime", "state", "supportingEvidenceIds", "refutingEvidenceIds"],
+  "properties": {
+    "relationId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The relation whose state is reported."
+    },
+    "profileId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The grounding profile under which state was computed."
+    },
+    "queryTime": {
+      "$ref": "../common/temporal-coordinate.schema.json",
+      "description": "The query time (`at`)."
+    },
+    "state": {
+      "$ref": "../common/evidential-state.schema.json",
+      "description": "The computed evidential state."
+    },
+    "supportingEvidenceIds": {
+      "type": "array",
+      "description": "Identifiers of admissible supporting evidence bases at the query time.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "refutingEvidenceIds": {
+      "type": "array",
+      "description": "Identifiers of admissible refuting evidence bases at the query time.",
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "observerTime": {
+      "$ref": "../common/temporal-coordinate.schema.json",
+      "description": "Optional observer time for bitemporal evaluation."
+    },
+    "excludedEvidence": {
+      "type": "array",
+      "description": "Evidence bases considered but excluded (e.g. inadmissible at the query time), with reasons.",
+      "items": {
+        "type": "object",
+        "required": ["evidenceId", "reasonCode"],
+        "properties": {
+          "evidenceId": { "$ref": "../common/identifier.schema.json" },
+          "reasonCode": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "policyId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Optional admission policy relevant to interpreting the snapshot."
+    },
+    "computedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the snapshot was computed (record time)."
+    }
+  },
+  "additionalProperties": false
+}

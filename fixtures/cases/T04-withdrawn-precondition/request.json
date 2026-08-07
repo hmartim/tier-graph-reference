@@ -1,0 +1,11 @@
+{
+  "operation": "getRelationStateAtTime",
+  "arguments": {
+    "relationId": "dr-separation-precondition-divorce",
+    "profileId": "public-legal-fixture",
+    "times": [
+      "2009-01-01T00:00:00Z",
+      "2011-01-01T00:00:00Z"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "profile": {
+    "id": "public-legal-fixture",
+    "name": "Public legal conformance fixture",
+    "version": "0.1.0",
+    "intervalConvention": "[from,to)",
+    "authorityNote": "Minimal reviewed test data derived from public legal sources; not a production SAT-Graph database."
+  },
+  "evidenceUnits": [
+    {
+      "id": "tu-art37-p6",
+      "ownerSourceStateId": "v-art37-p6-current"
+    }
+  ],
+  "sourceStates": [
+    {
+      "id": "v-art37-p6-current",
+      "admissibleFrom": "1988-10-05T00:00:00Z",
+      "admissibleTo": null
+    }
+  ]
+}

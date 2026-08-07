@@ -1,0 +1,88 @@
+{
+  "results": [
+    {
+      "at": "2025-01-01T00:00:00Z",
+      "paths": [],
+      "trace": {
+        "projectionIsNonTrivial": true,
+        "leakageWitnessRelationIds": [],
+        "candidateGenerationUsesProjectedGraph": true
+      },
+      "excluded": [
+        {
+          "relationId": "dr-b-c",
+          "reasonCode": "EVIDENCE_SOURCE_STATE_NOT_ADMISSIBLE",
+          "evidenceId": "re-b-c-future"
+        }
+      ]
+    },
+    {
+      "at": "2026-01-01T00:00:00Z",
+      "paths": [
+        {
+          "id": "de-a->de-c#0",
+          "sourceEntityId": "de-a",
+          "targetEntityId": "de-c",
+          "profileId": "public-legal-fixture",
+          "queryTime": "2026-01-01T00:00:00Z",
+          "policyId": "strict-supported",
+          "admissible": true,
+          "steps": [
+            {
+              "ordinal": 0,
+              "relationId": "dr-a-b",
+              "fromEntityId": "de-a",
+              "toEntityId": "de-b",
+              "admitted": true,
+              "direction": "outgoing",
+              "evidentialState": {
+                "relationId": "dr-a-b",
+                "profileId": "public-legal-fixture",
+                "queryTime": "2026-01-01T00:00:00Z",
+                "state": "supported",
+                "supportingEvidenceIds": [
+                  "re-a-b"
+                ],
+                "refutingEvidenceIds": [],
+                "policyId": "strict-supported"
+              }
+            },
+            {
+              "ordinal": 1,
+              "relationId": "dr-b-c",
+              "fromEntityId": "de-b",
+              "toEntityId": "de-c",
+              "admitted": true,
+              "direction": "outgoing",
+              "evidentialState": {
+                "relationId": "dr-b-c",
+                "profileId": "public-legal-fixture",
+                "queryTime": "2026-01-01T00:00:00Z",
+                "state": "supported",
+                "supportingEvidenceIds": [
+                  "re-b-c-future"
+                ],
+                "refutingEvidenceIds": [],
+                "policyId": "strict-supported"
+              }
+            }
+          ]
+        }
+      ],
+      "trace": {
+        "projectionIsNonTrivial": false,
+        "leakageWitnessRelationIds": [],
+        "candidateGenerationUsesProjectedGraph": true
+      }
+    }
+  ],
+  "policy": {
+    "id": "strict-supported",
+    "admittedStates": [
+      "supported"
+    ],
+    "groundingReviewStatuses": [
+      "accepted"
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "caseId": "T08",
+  "title": "Re-extraction does not duplicate evidence",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "createEvidence",
+  "entities": [
+    {
+      "id": "de-a",
+      "canonicalLabel": "A",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-b",
+      "canonicalLabel": "B",
+      "entityType": "concept",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-a-depends-b",
+      "sourceEntityId": "de-a",
+      "predicate": "DEPENDS_ON",
+      "targetEntityId": "de-b",
+      "predicateFamily": "procedural",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "absent"
+        },
+        "scope": {
+          "status": "absent"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [],
+  "provenanceActivities": []
+}

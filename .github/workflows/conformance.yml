@@ -1,0 +1,35 @@
+name: conformance
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Validate fixtures
+        run: python scripts/validate_fixtures.py
+      - name: Published results match a fresh run
+        # Runs BEFORE regenerating, so a commit whose results/ was not updated
+        # fails here instead of being silently overwritten.
+        run: python scripts/check_results_current.py
+      - name: Run conformance suite (T01-T10)
+        run: python scripts/run_conformance.py
+      - name: Upload conformance results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: conformance-results
+          path: |
+            results/conformance-results.json
+            results/conformance-summary.md

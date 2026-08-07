@@ -1,0 +1,28 @@
+{
+  "states": [
+    {
+      "profileId": "public-legal-fixture",
+      "queryTime": "2026-06-30T00:00:00Z",
+      "state": "unsupported",
+      "supportingEvidenceIds": []
+    },
+    {
+      "profileId": "public-legal-fixture",
+      "queryTime": "2026-07-01T00:00:00Z",
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-new-duty"
+      ]
+    }
+  ],
+  "vacatioChecks": [
+    {
+      "sourceStateId": "v-new-duty",
+      "publishedAt": "2026-01-10T00:00:00Z",
+      "admissibleFrom": "2026-07-01T00:00:00Z",
+      "admissibleAtPublication": false,
+      "admissibleAtApplicability": true
+    }
+  ],
+  "publicationDateDoesNotControlAdmission": true
+}

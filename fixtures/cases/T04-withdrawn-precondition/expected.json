@@ -1,0 +1,33 @@
+{
+  "states": [
+    {
+      "profileId": "public-legal-fixture",
+      "queryTime": "2009-01-01T00:00:00Z",
+      "state": "supported",
+      "supportingEvidenceIds": [
+        "re-divorce-pre-2010"
+      ]
+    },
+    {
+      "profileId": "public-legal-fixture",
+      "queryTime": "2011-01-01T00:00:00Z",
+      "state": "unsupported",
+      "supportingEvidenceIds": []
+    }
+  ],
+  "invariants": {
+    "distinctRelationCount": 1,
+    "r3RelationIntervalKeys": {
+      "found": 0,
+      "enforcedBy": "model-schema (extra=forbid)"
+    }
+  },
+  "historicalEvidenceIds": [
+    "re-divorce-pre-2010"
+  ],
+  "historicalEvidenceRetained": true,
+  "historicalEvidenceTemporallyInadmissibleAtLateTime": true,
+  "boundaryCauseRefs": [
+    "action-ec66-2010"
+  ]
+}

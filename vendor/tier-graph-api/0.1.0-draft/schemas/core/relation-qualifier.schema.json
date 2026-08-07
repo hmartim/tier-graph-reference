@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/core/relation-qualifier.schema.json",
+  "title": "RelationQualifier",
+  "description": "A truth-conditional dimension that may affect relation identity. A qualifier records a `dimension` (e.g. polarity, condition, scope, modality, participantRoles, or a profile-defined dimension such as jurisdiction or threshold) together with a `status`. CRITICAL RULES: (1) `status` is one of `specified`, `absent`, or `unknown`; (2) `unknown` MUST NOT be treated as equivalent to `absent`; (3) when `status` is `specified`, a normalized `value` MUST be present; (4) any identity-relevant qualifier whose status is `unknown` MUST block automatic relation merging.",
+  "type": "object",
+  "required": ["dimension", "status"],
+  "properties": {
+    "dimension": {
+      "type": "string",
+      "description": "The qualifier dimension. Minimum recognized dimensions: polarity, condition, scope, modality, participantRoles. Profiles MAY add dimensions (jurisdiction, threshold, exception, population, dosage, territorialScope, authorityLevel, temporalRelation, ...).",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "description": "Whether this dimension is specified, deliberately absent, or unknown. `unknown` is NOT the same as `absent`.",
+      "enum": ["specified", "absent", "unknown"]
+    },
+    "value": {
+      "description": "The normalized value of the dimension. REQUIRED when status is `specified`; MUST be omitted otherwise. May be a scalar or a structured value depending on the dimension.",
+      "type": ["string", "number", "boolean", "object", "array"]
+    },
+    "identityRelevant": {
+      "type": "boolean",
+      "description": "Whether this dimension participates in relation identity (the merge key). Defaults to true for the minimum truth-conditional dimensions; profiles declare which additional dimensions are identity-relevant.",
+      "default": true
+    },
+    "note": {
+      "type": "string",
+      "description": "Optional human-readable note explaining the qualifier or the reason it is unknown/absent."
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "specified" } } },
+      "then": { "required": ["value"] }
+    },
+    {
+      "if": { "properties": { "status": { "enum": ["absent", "unknown"] } } },
+      "then": { "not": { "required": ["value"] } }
+    }
+  ]
+}

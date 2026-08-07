@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/query/grounded-path.schema.json",
+  "title": "GroundedPath",
+  "description": "An ordered path whose relation steps have been evaluated under ONE profile, temporal coordinate, and admission policy. CRITICAL: a conforming path operation MUST generate candidate paths over the TIME-INDEXED PROJECTED graph. It MUST NOT traverse an all-time graph and merely filter citations afterward while claiming temporal-topology conformance. `admissible` is true only when every step is admitted by the policy; it does NOT mean every step is evidentially supported.",
+  "type": "object",
+  "required": [
+    "id",
+    "sourceEntityId",
+    "targetEntityId",
+    "steps",
+    "profileId",
+    "queryTime",
+    "policyId",
+    "admissible"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "Opaque identifier for this path result."
+    },
+    "sourceEntityId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The path's start entity."
+    },
+    "targetEntityId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The path's end entity."
+    },
+    "steps": {
+      "type": "array",
+      "description": "The ordered traversal steps. A grounded path is non-empty: this operation returns relational paths, so a query whose source and target entities are identical does NOT yield a zero-length path. Every step preserves its evidential state.",
+      "items": {
+        "$ref": "./path-step.schema.json"
+      },
+      "minItems": 1
+    },
+    "profileId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The grounding profile used."
+    },
+    "queryTime": {
+      "$ref": "../common/temporal-coordinate.schema.json",
+      "description": "The query time the projection was built for."
+    },
+    "policyId": {
+      "$ref": "../common/identifier.schema.json",
+      "description": "The admission policy used."
+    },
+    "admissible": {
+      "type": "boolean",
+      "description": "Whether every step was admitted by the admission policy at the query time. Admission is NOT evidential support: a recall-oriented policy may admit refuted or contested relations, so an admissible path may contain steps that are not supported. A path is positively supported only when every step's `evidentialState.state` is `supported`; consumers requiring positive support MUST check the steps rather than this flag."
+    },
+    "score": {
+      "type": "number",
+      "description": "Optional ranking score."
+    },
+    "rankingExplanation": {
+      "type": "object",
+      "description": "Optional structured explanation of the score.",
+      "additionalProperties": true
+    },
+    "excludedStepIds": {
+      "type": "array",
+      "description": "Identifiers of steps excluded from the admissible path.",
+      "items": {
+        "$ref": "../common/identifier.schema.json"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Path-specific properties.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

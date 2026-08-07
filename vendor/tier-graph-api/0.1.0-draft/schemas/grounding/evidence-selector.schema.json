@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/grounding/evidence-selector.schema.json",
+  "title": "EvidenceSelector",
+  "description": "Identifies a fragment within an evidence unit. A selector REFINES an evidence location; it does NOT create a new source state. Selector types are open and profile-extensible: character offsets, XPath-like paths, JSON Pointers, field names, canonical fragment identifiers, event identifiers, page/paragraph coordinates, or a custom profile selector. The `type` discriminates; remaining fields depend on the type.",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The selector type. Recognized base types include: textPosition, xpath, jsonPointer, fieldName, fragmentId, eventId, pageParagraph, custom.",
+      "minLength": 1
+    },
+    "start": {
+      "type": "integer",
+      "description": "Start offset (for textPosition selectors).",
+      "minimum": 0
+    },
+    "end": {
+      "type": "integer",
+      "description": "End offset (for textPosition selectors).",
+      "minimum": 0
+    },
+    "expression": {
+      "type": "string",
+      "description": "Path expression (for xpath / jsonPointer / fieldName selectors)."
+    },
+    "value": {
+      "type": "string",
+      "description": "Literal selector value (for fragmentId / eventId / custom selectors)."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Profile-specific selector parameters.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

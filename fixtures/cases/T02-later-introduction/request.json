@@ -1,0 +1,11 @@
+{
+  "operation": "getRelationStateAtTime",
+  "arguments": {
+    "relationId": "dr-housing-social-right",
+    "profileId": "public-legal-fixture",
+    "times": [
+      "1999-01-01T00:00:00Z",
+      "2005-01-01T00:00:00Z"
+    ]
+  }
+}

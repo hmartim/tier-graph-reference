@@ -1,0 +1,66 @@
+{
+  "caseId": "T04",
+  "title": "Withdrawn historical precondition",
+  "specificationVersion": "0.1.0-draft",
+  "operation": "getRelationStateAtTime",
+  "entities": [
+    {
+      "id": "de-prior-judicial-separation",
+      "canonicalLabel": "prior judicial separation",
+      "entityType": "condition",
+      "reviewStatus": "accepted"
+    },
+    {
+      "id": "de-divorce",
+      "canonicalLabel": "divorce",
+      "entityType": "legalOutcome",
+      "reviewStatus": "accepted"
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-separation-precondition-divorce",
+      "sourceEntityId": "de-prior-judicial-separation",
+      "predicate": "SATISFIES_PRECONDITION_FOR",
+      "targetEntityId": "de-divorce",
+      "predicateFamily": "normativeConsequential",
+      "qualifiers": {
+        "polarity": {
+          "status": "specified",
+          "value": "positive"
+        },
+        "condition": {
+          "status": "specified",
+          "value": "more than one year in legally provided cases"
+        },
+        "scope": {
+          "status": "specified",
+          "value": "civil marriage"
+        },
+        "modality": {
+          "status": "absent"
+        },
+        "participantRoles": {
+          "status": "absent"
+        }
+      },
+      "reviewStatus": "accepted"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "re-divorce-pre-2010",
+      "relationId": "dr-separation-precondition-divorce",
+      "anchors": [
+        {
+          "evidenceUnit": {
+            "profileId": "public-legal-fixture",
+            "evidenceUnitId": "tu-art226-p6-pre-ec66"
+          }
+        }
+      ],
+      "stance": "supports",
+      "reviewStatus": "accepted"
+    }
+  ]
+}

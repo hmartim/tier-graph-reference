@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spec.tier-graph.org/schemas/requests/explain-path-exclusion-request.schema.json",
+  "title": "ExplainPathExclusionRequest",
+  "description": "Request body for explainPathExclusion (CQ8). Explains why a caller-supplied path is excluded from the projection at a query time, naming the inadmissible evidence units / source states responsible.",
+  "type": "object",
+  "required": ["relationIds", "profileId", "at", "policyId"],
+  "properties": {
+    "relationIds": {
+      "type": "array",
+      "description": "The ordered relation identifiers forming the path whose exclusion is to be explained.",
+      "minItems": 1,
+      "items": { "$ref": "../common/identifier.schema.json" }
+    },
+    "profileId": { "$ref": "../common/identifier.schema.json", "description": "Grounding profile." },
+    "at": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Query time." },
+    "observerTime": { "$ref": "../common/temporal-coordinate.schema.json", "description": "Optional observer time (bitemporal)." },
+    "policyId": { "$ref": "../common/identifier.schema.json", "description": "Admission policy." }
+  },
+  "additionalProperties": false
+}
